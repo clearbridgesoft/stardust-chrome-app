@@ -8,6 +8,10 @@
 			"scripts": ["main.js"]
 		}
 	},
+	"permissions": [
+		"storage"
+	],
+	"offline_enabled": false,
 	"icons": {
 		"16": "images/appStardust.png",
 		"128": "images/splashStardust.png"

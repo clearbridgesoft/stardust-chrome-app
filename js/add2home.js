@@ -3,7 +3,8 @@
  * Released under MIT license, http://cubiq.org/license
  */
 
-var addToHome = (function (w) {
+var addToHome = (function (w, c) {
+	console.log(w);
 	var nav = w.navigator,
 		//isIDevice = 'platform' in nav && (/iphone|ipod|ipad/gi).test(nav.platform),
 		isTouchDevice = 'ontouchstart' in document.documentElement,
@@ -36,7 +37,6 @@ var addToHome = (function (w) {
 			message: '',				// Customize your message or force a language ('' = automatic)
 			touchIcon: isTouchDevice,	// Display the touch icon
 			arrow: true,				// Display the balloon arrow
-			hookOnLoad: true,			// Should we hook to onload event? (really advanced usage)
 			closeButton: true,			// Let the user close the balloon
 			iterations: 100				// Internal/debug use
 		},
@@ -74,14 +74,7 @@ var addToHome = (function (w) {
 
 	function init () {
 
-		var now = Date.now(),
-			i;
-		// Merge local with global options
-		if ( w.addToHomeConfig ) {
-			for ( i in w.addToHomeConfig ) {
-				options[i] = w.addToHomeConfig[i];
-			}
-		}
+		var now = Date.now();
 		if ( !options.autostart ) options.hookOnLoad = false;
 		isIPad = (/ipad/gi).test(nav.platform);
 		isRetina = w.devicePixelRatio && w.devicePixelRatio > 1;
@@ -90,24 +83,23 @@ var addToHome = (function (w) {
 		OSVersion = nav.appVersion.match(/OS (\d+_\d+)/i);
 		OSVersion = OSVersion && OSVersion[1] ? +OSVersion[1].replace('_', '.') : 0;
 
-		lastVisit = +w.localStorage.getItem('addToHome');
+		c.storage.local.get('addToHome', function(data){
+			lastVisit = +data.addToHome;
+			isSessionActive = w.sessionStorage.getItem('addToHomeSession');
+			isReturningVisitor = options.returningVisitor ? lastVisit && lastVisit + 28*24*60*60*1000 > now : true;
 
-		isSessionActive = w.sessionStorage.getItem('addToHomeSession');
-		isReturningVisitor = options.returningVisitor ? lastVisit && lastVisit + 28*24*60*60*1000 > now : true;
+			if ( !lastVisit ) lastVisit = now;
 
-		if ( !lastVisit ) lastVisit = now;
-
-		// If it is expired we need to reissue a new balloon
-		isExpired = isReturningVisitor && lastVisit <= now;
-		if ( options.hookOnLoad ) w.addEventListener('load', loaded, false);
-		else if ( !options.hookOnLoad && options.autostart ) loaded();
+			// If it is expired we need to reissue a new balloon
+			isExpired = isReturningVisitor && lastVisit <= now;
+			if (options.autostart ) loaded();
+		});
 	}
 
 	function loaded () {
-		w.removeEventListener('load', loaded, false);
 
-		if ( !isReturningVisitor ) w.localStorage.setItem('addToHome', Date.now());
-		else if ( options.expire && isExpired ) w.localStorage.setItem('addToHome', Date.now() + options.expire * 60000);
+		if ( !isReturningVisitor ) c.storage.local.set({'addToHome': Date.now()});
+		else if ( options.expire && isExpired ) c.storage.local.set({'addToHome': Date.now() + options.expire * 60000});
 
 		if ( !overrideChecks && ( !isSafari || !isExpired || isSessionActive || isStandalone || !isReturningVisitor ) ) return;
 
@@ -322,7 +314,7 @@ var addToHome = (function (w) {
 
 	// Clear local and session storages (this is useful primarily in development)
 	function reset () {
-		w.localStorage.removeItem('addToHome');
+		c.storage.local.remove('addToHome');
 		w.sessionStorage.removeItem('addToHomeSession');
 	}
 
@@ -338,4 +330,4 @@ var addToHome = (function (w) {
 		close: close,
 		reset: reset
 	};
-})(window);
+})(window, chrome);
