@@ -2,9 +2,11 @@
  * Add to Homescreen v2.0.11 ~ Copyright (c) 2013 Matteo Spinelli, http://cubiq.org
  * Released under MIT license, http://cubiq.org/license
  */
+
 var addToHome = (function (w) {
 	var nav = w.navigator,
-		isIDevice = 'platform' in nav && (/iphone|ipod|ipad/gi).test(nav.platform),
+		//isIDevice = 'platform' in nav && (/iphone|ipod|ipad/gi).test(nav.platform),
+		isTouchDevice = 'ontouchstart' in document.documentElement,
 		isIPad,
 		isRetina,
 		isSafari,
@@ -32,7 +34,7 @@ var addToHome = (function (w) {
 			bottomOffset: 14,			// Distance of the balloon from bottom
 			expire: 0,					// Minutes to wait before showing the popup again (0 = always displayed)
 			message: '',				// Customize your message or force a language ('' = automatic)
-			touchIcon: false,			// Display the touch icon
+			touchIcon: isTouchDevice,	// Display the touch icon
 			arrow: true,				// Display the balloon arrow
 			hookOnLoad: true,			// Should we hook to onload event? (really advanced usage)
 			closeButton: true,			// Let the user close the balloon
@@ -71,12 +73,9 @@ var addToHome = (function (w) {
 		};
 
 	function init () {
-		// Preliminary check, all further checks are performed on iDevices only
-		if ( !isIDevice ) return;
 
 		var now = Date.now(),
 			i;
-
 		// Merge local with global options
 		if ( w.addToHomeConfig ) {
 			for ( i in w.addToHomeConfig ) {
@@ -84,7 +83,6 @@ var addToHome = (function (w) {
 			}
 		}
 		if ( !options.autostart ) options.hookOnLoad = false;
-
 		isIPad = (/ipad/gi).test(nav.platform);
 		isRetina = w.devicePixelRatio && w.devicePixelRatio > 1;
 		isSafari = (/Safari/i).test(nav.appVersion) && !(/CriOS/i).test(nav.appVersion);
@@ -101,7 +99,6 @@ var addToHome = (function (w) {
 
 		// If it is expired we need to reissue a new balloon
 		isExpired = isReturningVisitor && lastVisit <= now;
-
 		if ( options.hookOnLoad ) w.addEventListener('load', loaded, false);
 		else if ( !options.hookOnLoad && options.autostart ) loaded();
 	}
@@ -227,7 +224,7 @@ var addToHome = (function (w) {
 	}
 
 	function manualShow (override) {
-		if ( !isIDevice || balloon ) return;
+		if (balloon ) return;
 
 		overrideChecks = override;
 		loaded();
