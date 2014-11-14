@@ -1,0 +1,70 @@
+
+<div class="ipp-header" data-role="header">
+	 <a href="#mainPage" class="ipp-icon-minimal">
+	 	<i style="float:left;" class="fa fa-2x fa-chevron-left"></i>
+	 </a>
+     <h4>{{uiText.worklist}}
+     	<span class="ipp-li-count ipp-li-count-relative">{{worklistModel.worklistItems.length}}</span>
+     </h4>
+     <!-- span class="ipp-li-count">{{worklistModel.worklistItems.length}}</span-->
+     <a  class="ipp-icon-minimal" href="#wlistFilterPopup" data-rel="popup" data-transition="slide">
+     	<i  class="fa ipp-fs-2x fa-sort"></i>
+     </a>
+     <div data-role="popup" id="wlistFilterPopup" data-theme="b">
+        <ul data-role="listview"  data-inset="true" style="min-width:210px;">
+            <li ng-click="predicate='-startTime'"><a class="ipp-no-content ipp-center" href="#">{{uiText.newest}}</a></li>
+            <li ng-click="predicate='startTime'"><a class="ipp-no-content ipp-center" href="#">{{uiText.oldest}}</a></li>
+            <li ng-click="predicate='criticality'"><a class="ipp-no-content ipp-center" href="#">{{uiText.critical}}</a></li>
+            <li ng-click="predicate='lastModificationTime'"><a class="ipp-no-content ipp-center" href="#">{{uiText.modified}}</a></li>
+        </ul>
+	</div>	
+</div>
+
+<div  ng-show="errorModel.hasError==true" 
+      ng-click="errorModel.hasError=false;" 
+      class="ipp-bar ipp-bar-error">
+	<i class="fa fa-times-circle-o"></i>
+	<span>{{errorModel.errorMessage}}</span>
+</div>
+
+<div data-iscroll>
+	<ul data-role="listview">
+		<li ng-repeat="item in worklistModel.worklistItems | orderBy:predicate">
+			<a href="#detailPage?id={{item.oid}}" class="ipp-no-content">
+				<div  class="ipp-inline">
+					<p>
+						<span class="ipp-fs-2x ipp-light ipp-fw-normal">
+							{{item.activityName}} <span class="hide-media-sm">(#{{item.oid}})</span>
+						</span>
+					</p>
+					<span class="ipp-fs-smallest ipp-lightest ipp-fw-normal" 
+					      ng-switch="$last" 
+					      ng-repeat="(key,value) in item.descriptors">
+	          			{{key}}: {{value}}<span ng-if="!$last">,</span>
+	          		</span>
+	         	</div>
+         		<div class="ui-li-aside">
+         			<i class="fa fa-clock-o ipp-lighter ipp-fs-smaller"></i>
+
+         			<span class="ipp-fs-smallest ipp-lighter ipp-fw-normal">
+         			      {{item.startTime | friendlyDate }}</span>
+         		</div>
+         		<i class="fa fa-1x fa-chevron-right ipp-nav-icon-right ipp-margin-top-1x"></i>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<div ng-show="worklistModel.worklistItems.length == 0" style="text-align:center;margin-top:5em;">
+    	<i style="font-size:8em;" class="fa fa-inbox"></i>
+    	<p>
+    		<strong>{{uiText.empty}}</strong>
+    	</p>
+</div>
+
+<!-- div data-position="fixed" data-role="footer" data-theme="a" 
+		 ng-controller="footerCtrl"
+		 data-jqm-template 
+		 data-jqm-widgets="" 
+		 data-template-url="templates/baseFooter.html">
+</div-->

@@ -1,0 +1,125 @@
+<!-- 
+* Copyright (c) 2011 SunGard CSA LLC and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: SunGard CSA LLC - initial API and implementation and/or initial
+ * documentation
+ -->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./css/jquery.mobile/jquery.mobile-1.4.0.min.css" />
+		<link rel="stylesheet" href="./css/jquery.ui/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" href="./css/font-awesome/css/font-awesome.css" />
+	</head>
+	
+	<body ng-cloak>
+		<div id="mashupMain" data-role="page" ng-controller="main">
+
+			<div data-role="header">
+				<h1>{{model.title}}</h1>
+			</div><!-- /header -->
+		
+			<div role="content" class="ui-content">
+			<form>
+				
+				<div class="ui-field-contain">
+				    <label for="firstName">First Name:</label>
+				    <input ng-model="model.person.FirstName" id="firstName">
+				</div>
+				
+				<div class="ui-field-contain">
+				    <label for="lastName">Last Name:</label>
+				    <input ng-model="model.person.LastName" id="lastName">
+				</div>
+				
+				<div class="ui-field-contain">
+				    <label for="policyNumber">Policy Number:</label>
+				    <input ng-model="model.person.PolicyNumber" id="policyNumber">
+				</div>
+				
+				<div class="ui-field-contain">
+				    <label for="accidentDate">Accident Date:</label>
+				    <input ng-model="model.accident.DateOfAccident" id="accidentDate" data-role="date">
+				</div>
+				
+				<div class="ui-field-contain">
+				    <div class="ui-corner-all" for="accidentLocation">
+				    	<i style="display:inline;" ng-click="getCurrentPosition()" class="fa ui-mini ui-btn fa-map-marker">
+				    		<span style="font-family: sans-serif;font-weight:400;font-size:16px;">Accident Location</span>
+				    	</i>
+				    </div>
+				    <textarea ng-model="model.accident.AccidentLocation" 
+				           placeholder="coordinates" 
+				           id="accidentLocation"></textarea>
+				</div>
+				
+				<div class="ui-field-contain">
+				    <label for="slider-5">Number of Vehicles Involved</label>
+				    <input ng-model="model.accident.CarsInvolvedInAccident"  type="number" name="slider-5" id="slider-5" value="2" min="0" max="10" data-highlight="true" data-mini="true">
+				</div>
+
+				<div class="ui-field-contain">
+					<label for="flip-checkbox-1">Was Your Vehicle Towed?</label>
+				    <input ng-model="model.accident.YourVehicleTowed" type="checkbox" data-on-text="Yes" data-off-text="No" name="flip-checkbox-1" id="flip-checkbox-1">
+				</div>
+
+			    <p>Where was your vehicle damaged?</p>
+			    
+			    <div id="checkboxAccInfo" class="ui-grid-a" class="ui-mini">
+				    <div class="ui-block-a">
+				    	<div class="ui-bar ui-bar-a" style="height:60px;">
+				    		<input ng-model="model.accident.WhereVehicleDamaged.Front" type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
+       						<label for="checkbox-v-2a" style="font-size:0.9em;">Front</label>
+				    	</div>
+				    </div>
+				    <div class="ui-block-b">
+				    	<div class="ui-bar ui-bar-a" style="height:60px;">
+				    		<input ng-model="model.accident.WhereVehicleDamaged.Rear" type="checkbox" name="checkbox-v-2b" id="checkbox-v-2b">
+       						<label for="checkbox-v-2b" style="font-size:0.9em;">Rear</label>
+				    	</div>
+				    </div>
+				    <div class="ui-block-a">
+				    	<div class="ui-bar ui-bar-a" style="height:60px">
+				    		<input ng-model="model.accident.WhereVehicleDamaged.PassengerSide" type="checkbox" name="checkbox-v-2c" id="checkbox-v-2c">
+       						<label for="checkbox-v-2c" style="font-size:0.9em;">Pass-side</label>
+				    	</div>
+				    </div>
+				    <div class="ui-block-b">
+				    	<div class="ui-bar ui-bar-a" style="height:60px">
+				    		<input ng-model="model.accident.WhereVehicleDamaged.DriverSide" type="checkbox" name="checkbox-v-2d" id="checkbox-v-2d">
+       						<label for="checkbox-v-2d" style="font-size:0.9em;">Driver Side</label>
+				    	</div>
+				    </div>
+				    <div class="ui-block-a">
+				    	<div class="ui-bar ui-bar-a" style="height:60px">
+				    		<input ng-model="model.accident.WhereVehicleDamaged.Hood" type="checkbox" name="checkbox-v-2e" id="checkbox-v-2e">
+       						<label for="checkbox-v-2e" style="font-size:0.9em;">hood</label>
+				    	</div>
+				    </div>
+				    <div class="ui-block-b">
+				    	<div class="ui-bar ui-bar-a" style="height:60px">
+				    		<input ng-model="model.accident.WhereVehicleDamaged.Undercarriage" type="checkbox" name="checkbox-v-2f" id="checkbox-v-2f">
+       						<label for="checkbox-v-2f" style="font-size:0.9em;">Undercarriage</label>
+				    	</div>
+				    </div>
+
+					</div><!-- /grid-a -->
+				</form>
+			</div><!-- /content -->
+			<div style="text-align:center;">
+				<button ng-click="complete()" class="ui-btn ui-corners-all ui-btn-inline">Submit</button>
+				<button ng-click="suspendAndSave()" class="ui-btn ui-corners-all ui-btn-inline">Save</button>
+				<button ng-click="suspend()" class="ui-btn ui-corners-all ui-btn-inline">Cancel</button>
+			</div>
+		</div><!-- /page -->
+		
+		
+		<script type="text/javascript" data-main="js/MashUpMain.js" src="./js/libs/require/2.0.5/require.js"></script>
+		
+	</body>
+</html>
