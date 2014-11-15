@@ -14,15 +14,11 @@ require
 		.config({
 			baseUrl : "./",
 			paths : {
-				'jquery' 		  : [ 'js/libs/jquery/jquery-1.7.2.min',
-				         		      '//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min' ],
-				'jquery-router'   : [ 'js/libs/jquery/plugins/jquery.mobile.router.min',
-				                      '//raw.github.com/azicchetti/jquerymobile-router/master/js/jquery.mobile.router.min'],
-				'jquery-mobile'   : [ 'js/libs/jquery/plugins/jquery.mobile-1.4.0.min',
-				                      '//code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0'],
+				'jquery' 		  : [ 'js/libs/jquery/jquery-1.7.2.min'],
+				'jquery-router'   : [ 'js/libs/jquery/plugins/jquery.mobile.router.min'],
+				'jquery-mobile'   : [ 'js/libs/jquery/plugins/jquery.mobile-1.4.0.min'],
 				'jquery-iscroll'  : [ 'js/libs/jquery/plugins/jquery.mobile.iscrollview.min'],
-				'angularjs' 	  : [ 'js/libs/angular/angular.1.2.11.min',
-				            	      '//ajax.googleapis.com/ajax/libs/angularjs/1.2.11/angular.min' ]
+				'angularjs' 	  : [ 'js/libs/angular/angular.1.2.11.min']
 			},
 			shim : {
 				'jquery-router'    : ['jquery'],

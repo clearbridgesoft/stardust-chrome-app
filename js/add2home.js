@@ -4,7 +4,7 @@
  */
 
 var addToHome = (function (w, c) {
-	console.log(w);
+
 	var nav = w.navigator,
 		//isIDevice = 'platform' in nav && (/iphone|ipod|ipad/gi).test(nav.platform),
 		isTouchDevice = 'ontouchstart' in document.documentElement,
