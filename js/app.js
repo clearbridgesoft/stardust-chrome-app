@@ -18,95 +18,95 @@ define(function(require){
 		rootScope;  /*Angular rootScope within a JQuery context*/
 
 	/*Perform dependency injection for our application before we bootstrap*/
-	app.controller( "loginCtrl",  baseControllers.loginCtrl);
-	app.controller( "footerCtrl", baseControllers.footerCtrl);
+	//app.controller( "loginCtrl",  baseControllers.loginCtrl);
+	//app.controller( "footerCtrl", baseControllers.footerCtrl);
 	app.controller( "headerCtrl", baseControllers.headerCtrl);
-	app.controller( "worklistCtrl",  worklistControllers.worklistCtrl);
-	app.controller( "detailCtrl",    worklistControllers.detailCtrl);
-	app.controller( "panelCtrl",     worklistControllers.panelCtrl);
-	app.controller( "startableProcessesCtrl", worklistControllers.startableProcessesCtrl);
-	app.controller( "formCtrl",      worklistControllers.formCtrl);
-	app.controller( "processCtrl",   worklistControllers.processCtrl);
-	app.controller( "mainPageCtrl",  worklistControllers.mainPageCtrl);
-	app.controller( "documentViewerCtrl" , worklistControllers.documentViewerCtrl);
-	app.controller( "repositoryRootCtrl" , worklistControllers.repositoryRootCtrl);
-	app.controller( "documentSearchCtrl" , worklistControllers.documentSearchCtrl);
-	app.controller( "activitySearchCtrl" , worklistControllers.activitySearchCtrl);
-	app.controller( "processSearchCtrl"  , worklistControllers.processSearchCtrl);
-	app.controller( "reportRootCtrl"     , worklistControllers.reportRootCtrl);
-	app.controller( "reportViewerCtrl"   , worklistControllers.reportViewerCtrl);
-	app.controller("unauthorizedCtrl"    , worklistControllers.unauthorizedCtrl);
-	app.controller("profileCtrl"         , worklistControllers.profileCtrl);
-	app.controller("settingsCtrl"        , worklistControllers.settingsCtrl);
-	app.filter( "friendlyDate",        baseFilters.friendlyDate);
-	app.filter( "serializeObject",   baseFilters.serializeObject);
-	app.filter( "criticality",       baseFilters.criticality);
-	app.filter( "absoluteTime",      baseFilters.absoluteTime);
-	app.filter( "priority",          baseFilters.priority);
-	app.directive( "jqmTemplate",    jqmDirectives.jqmTemplate);
-	app.directive("jqmPopup",        jqmDirectives.jqmPopup);
-	app.directive("jqmLoader",       jqmDirectives.jqmLoader);
-	app.directive( "testTemplate",   jqmDirectives.testTemplate);
-	app.directive( "fileUpload",   	 fileDirectives.fileUpload);
-	app.directive( "setFocus",   	 baseDirectives.setFocus);
-	app.directive( "speechToText",   baseDirectives.speechToText);
-	app.directive( "imageViewer",    docViewDirectives.imageViewer);
-	app.factory("utilService",utilService);
-	app.factory("workflowService",angWorkflow);
+	//app.controller( "worklistCtrl",  worklistControllers.worklistCtrl);
+	//app.controller( "detailCtrl",    worklistControllers.detailCtrl);
+	//app.controller( "panelCtrl",     worklistControllers.panelCtrl);
+	//app.controller( "startableProcessesCtrl", worklistControllers.startableProcessesCtrl);
+	//app.controller( "formCtrl",      worklistControllers.formCtrl);
+	//app.controller( "processCtrl",   worklistControllers.processCtrl);
+	//app.controller( "mainPageCtrl",  worklistControllers.mainPageCtrl);
+	//app.controller( "documentViewerCtrl" , worklistControllers.documentViewerCtrl);
+	//app.controller( "repositoryRootCtrl" , worklistControllers.repositoryRootCtrl);
+	//app.controller( "documentSearchCtrl" , worklistControllers.documentSearchCtrl);
+	//app.controller( "activitySearchCtrl" , worklistControllers.activitySearchCtrl);
+	//app.controller( "processSearchCtrl"  , worklistControllers.processSearchCtrl);
+	//app.controller( "reportRootCtrl"     , worklistControllers.reportRootCtrl);
+	//app.controller( "reportViewerCtrl"   , worklistControllers.reportViewerCtrl);
+	//app.controller("unauthorizedCtrl"    , worklistControllers.unauthorizedCtrl);
+	//app.controller("profileCtrl"         , worklistControllers.profileCtrl);
+	//app.controller("settingsCtrl"        , worklistControllers.settingsCtrl);
+	//app.filter( "friendlyDate",        baseFilters.friendlyDate);
+	//app.filter( "serializeObject",   baseFilters.serializeObject);
+	//app.filter( "criticality",       baseFilters.criticality);
+	//app.filter( "absoluteTime",      baseFilters.absoluteTime);
+	//app.filter( "priority",          baseFilters.priority);
+	//app.directive( "jqmTemplate",    jqmDirectives.jqmTemplate);
+	//app.directive("jqmPopup",        jqmDirectives.jqmPopup);
+	//app.directive("jqmLoader",       jqmDirectives.jqmLoader);
+	//app.directive( "testTemplate",   jqmDirectives.testTemplate);
+	//app.directive( "fileUpload",   	 fileDirectives.fileUpload);
+	//app.directive( "setFocus",   	 baseDirectives.setFocus);
+	//app.directive( "speechToText",   baseDirectives.speechToText);
+	//app.directive( "imageViewer",    docViewDirectives.imageViewer);
+	//app.factory("utilService",utilService);
+	//app.factory("workflowService",angWorkflow);
 	app.factory("il18nService",il18nService);
 	
 	/*Initial setup for our application*/
-	app.run(function($rootScope,workflowService,il18nService){
-		
-		/*Initialize app level data which all scopes may require*/
-		$rootScope.appData={
-				"barDuration" : 5000,
-				"isAuthorized" : false,
-				"user" :{},
-				"isActivityHot" : false,
-				"hotActivityInstance" : {},
-				"activePage" : "login",
-				"infoText" : {
-					"upload" : il18nService.getProperty("mobile.info.upload"),
-					"genericSave" : il18nService.getProperty("mobile.info.general.save")
-				},
-				"errorText"  : {
-					"pageload"        : il18nService.getProperty("mobile.error.pageload"),
-					"recordretrieval" : il18nService.getProperty("mobile.error.recordretrieval"),
-					"startprocess"    : il18nService.getProperty("mobile.error.startprocess"),
-					"upload"          : il18nService.getProperty("mobile.error.upload"),
-					"notesave"        : il18nService.getProperty("mobile.error.note.save"),
-					"activation"      : il18nService.getProperty("mobile.error.activation"),
-					"refresh"         : il18nService.getProperty("mobile.error.document.refresh"),
-					"folder"          : il18nService.getProperty("mobile.error.folder"),
-					"priority"        : il18nService.getProperty("mobile.error.process.priority"),
-					"genericSave"     : il18nService.getProperty("mobile.error.general.save")
-				}
-		};
-		
-		/*Any time we detect a navigate event in our JQM router provider, we will need
-		 *to signal the Angular universe that the event has occurred so that the
-		 *appropriate controller can initialize itself.*/
-		$rootScope.signalJQMNavigation = function(data){
-			$rootScope.$broadcast("jqm-navigate",data);
-		};
-		
-		/*Handler for activityStatus changes from our embedded mashup Apps.*/
-		$rootScope.$on("activityStatusChange",function(e,data){
-			/*filter out events that don't match our hotInstance*/
-			console.log("activityStatusChange event on rootScope...");
-			switch(data.newStatus){
-				case "complete"       :
-				case "suspend"        :
-				case "suspendAndSave" :
-					console.log("Resetting rootscope activity Instance state.");
-					$rootScope.appData.hotActivityInstance={};
-					$rootScope.appData.isActivityHot="false";
-					break;	
-			}
-		});
-		
-	});
+	//app.run(function($rootScope,workflowService,il18nService){
+	//
+	//	/*Initialize app level data which all scopes may require*/
+	//	$rootScope.appData={
+	//			"barDuration" : 5000,
+	//			"isAuthorized" : false,
+	//			"user" :{},
+	//			"isActivityHot" : false,
+	//			"hotActivityInstance" : {},
+	//			"activePage" : "login",
+	//			"infoText" : {
+	//				"upload" : il18nService.getProperty("mobile.info.upload"),
+	//				"genericSave" : il18nService.getProperty("mobile.info.general.save")
+	//			},
+	//			"errorText"  : {
+	//				"pageload"        : il18nService.getProperty("mobile.error.pageload"),
+	//				"recordretrieval" : il18nService.getProperty("mobile.error.recordretrieval"),
+	//				"startprocess"    : il18nService.getProperty("mobile.error.startprocess"),
+	//				"upload"          : il18nService.getProperty("mobile.error.upload"),
+	//				"notesave"        : il18nService.getProperty("mobile.error.note.save"),
+	//				"activation"      : il18nService.getProperty("mobile.error.activation"),
+	//				"refresh"         : il18nService.getProperty("mobile.error.document.refresh"),
+	//				"folder"          : il18nService.getProperty("mobile.error.folder"),
+	//				"priority"        : il18nService.getProperty("mobile.error.process.priority"),
+	//				"genericSave"     : il18nService.getProperty("mobile.error.general.save")
+	//			}
+	//	};
+	//
+	//	/*Any time we detect a navigate event in our JQM router provider, we will need
+	//	 *to signal the Angular universe that the event has occurred so that the
+	//	 *appropriate controller can initialize itself.*/
+	//	$rootScope.signalJQMNavigation = function(data){
+	//		$rootScope.$broadcast("jqm-navigate",data);
+	//	};
+	//
+	//	/*Handler for activityStatus changes from our embedded mashup Apps.*/
+	//	$rootScope.$on("activityStatusChange",function(e,data){
+	//		/*filter out events that don't match our hotInstance*/
+	//		console.log("activityStatusChange event on rootScope...");
+	//		switch(data.newStatus){
+	//			case "complete"       :
+	//			case "suspend"        :
+	//			case "suspendAndSave" :
+	//				console.log("Resetting rootscope activity Instance state.");
+	//				$rootScope.appData.hotActivityInstance={};
+	//				$rootScope.appData.isActivityHot="false";
+	//				break;
+	//		}
+	//	});
+	//
+	//});
 	
 	/* 1. bootstrap our document against our angular application
 	 * 2. tie in any handlers we need to for our events */
