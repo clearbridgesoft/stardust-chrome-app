@@ -15,9 +15,9 @@
 </a-->
 
 
-<div ng-show="(appData.isActivityHot=='true' || appData.isActivityHot==true) && appData.activePage !='detailPage'" class="ng-hide">
-	<a ng-href="#detailPage?id={{appData.hotActivityInstance.oid}}&activeTab=formTab"  class="ipp-minimal jqm-cstm-inlineAlert jqm-cstm-success">
-		<span style="font-size: 0.7em;">{{uiText.tapto}} {{appData.hotActivityInstance.name}} <span class="hide-media-sm">(#{{appData.hotActivityInstance.oid}})</span></span>
+<div ng-show="showhotActivityInstance()" class="ng-hide">
+	<a ng-href="{{hotActivityInstanceHref()}}"  class="ipp-minimal jqm-cstm-inlineAlert jqm-cstm-success">
+		<span style="font-size: 0.7em;">{{TapToTextOne}} <span class="hide-media-sm">{{TapToTextTwo}}</span></span>
 		<i class="fa fa-angle-right fa-2x ipp-pull-right ipp-pad-right-2x"></i>
 	</a>
 </div>

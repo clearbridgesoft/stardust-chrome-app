@@ -105,7 +105,22 @@ define([],function(){
 						$scope.headerModel.showActivityNavBar = true;
 					});
 				});
-				
+
+				$scope.showhotActivityInstance = function(){
+					return ($rootScope.appData.isActivityHot=='true' || $rootScope.appData.isActivityHot==true) && $rootScope.appData.activePage !='detailPage';
+				};
+
+				$scope.hotActivityInstanceHref = function(){
+					return "#detailPage?id=" + $rootScope.appData.hotActivityInstance.oid + "&activeTab=formTab";
+				};
+
+				$scope.TapToTextOne = function(){
+					return $scope.uiText.tapto + " " + appData.hotActivityInstance.name;
+				};
+
+				$scope.TapToTextTwo = function(){
+					return '(#' + appData.hotActivityInstance.oid + ')';
+				};
 			},
 			
 			/*simple binding for our persistent footer*/

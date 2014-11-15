@@ -4,14 +4,15 @@ define(["angularjs"],function(angular){
 		ngInjector = angular.injector(["ng"]),
 	    $http = ngInjector.get("$http"),
 	    $q = ngInjector.get("$q"),
-	    $window = ngInjector.get("$window"),    
-	    baseServiceUrl,
-	    baseUrl,
-	    href;
+	    $window = ngInjector.get("$window");
 	
-	href = $window.location.href;
-	baseUrl = href.substring(0,href.indexOf("/plugins"));
-	baseServiceUrl = href.substring(0,href.indexOf("/plugins"))+ "/services/rest/mobile-workflow";
+	//href = $window.location.href;
+	//baseUrl = href.substring(0,href.indexOf("/plugins"));
+	//baseServiceUrl = href.substring(0,href.indexOf("/plugins"))+ "/services/rest/mobile-workflow";
+
+	var getBaseServiceUrl = function() {
+		return $window.serverBaseUrl + "/services/rest/mobile-workflow";
+	};
 	
 	srvc = {
 			
@@ -23,7 +24,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/login",
+				    url: getBaseServiceUrl() + "/login",
 				    method: "POST",
 				    data: {
 							"account"   : account,
@@ -38,13 +39,13 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
-			"baseHref" : baseServiceUrl,
+			"baseHref" : getBaseServiceUrl,
 			
 			"activate" : function(activityOid){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/activity-instances/" + activityOid + "/activation",
+				    url: getBaseServiceUrl() + "/activity-instances/" + activityOid + "/activation",
 				    method: "PUT"
 				}).success(function(data, status, headers, config) {
 					// SG
@@ -60,7 +61,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/worklist",
+				    url: getBaseServiceUrl() + "/worklist",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -74,7 +75,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/states",
+				    url: getBaseServiceUrl() + "/process-instances/states",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -89,7 +90,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/activity-instances/states",
+				    url: getBaseServiceUrl() + "/activity-instances/states",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -117,7 +118,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/" + processOid + "/documents",
+				    url: getBaseServiceUrl() + "/process-instances/" + processOid + "/documents",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -131,7 +132,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/folders/root",
+				    url: getBaseServiceUrl() + "/folders/root",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -150,7 +151,7 @@ define(["angularjs"],function(angular){
 				}
 				
 				$http({
-				    url: baseServiceUrl + url,
+				    url: getBaseServiceUrl() + url,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -164,7 +165,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/folders/root",
+				    url: getBaseServiceUrl() + "/folders/root",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -183,7 +184,7 @@ define(["angularjs"],function(angular){
 				}
 				
 				$http({
-				    url: baseServiceUrl + url,
+				    url: getBaseServiceUrl() + url,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -197,7 +198,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/worklist/count",
+				    url: getBaseServiceUrl() + "/worklist/count",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -212,7 +213,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/activities?processDefinitionIds=" + procs,
+				    url: getBaseServiceUrl() + "/activities?processDefinitionIds=" + procs,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -240,7 +241,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/activities?" + activityOid,
+				    url: getBaseServiceUrl() + "/activities?" + activityOid,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -254,7 +255,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/activity-instances/" + activityOid,
+				    url: getBaseServiceUrl() + "/activity-instances/" + activityOid,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -268,7 +269,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/" + processInstanceOid,
+				    url: getBaseServiceUrl() + "/process-instances/" + processInstanceOid,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -325,7 +326,7 @@ define(["angularjs"],function(angular){
 				 	ids=ids.replace(/[{}]/g, encodeURIComponent);
 				
 				$http({
-				    url: baseServiceUrl + "/documents?" + 
+				    url: getBaseServiceUrl() + "/documents?" +
 				    					  "searchText=" + name +
 				    					  "createFromTimestamp=" + start +
 				    					  "createToTimestamp=" + end + 
@@ -344,7 +345,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/activity-instances?" + 
+				    url: getBaseServiceUrl() + "/activity-instances?" +
 				    					  "startedFromTimestamp=" + start +
 				    					  "&startedToTimestamp=" + end +
 				    					  "&activityIds=" + ids + 
@@ -364,7 +365,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances?" + 
+				    url: getBaseServiceUrl() + "/process-instances?" +
 				    					  "startedFromTimestamp=" + start +
 				    					  "&startedToTimestamp=" + end +
 				    					  "&processDefinitionIds=" + ids +
@@ -387,7 +388,7 @@ define(["angularjs"],function(angular){
 				}
 				
 				$http({
-				    url: baseServiceUrl + "/process-definitions" + params,
+				    url: getBaseServiceUrl() + "/process-definitions" + params,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -401,7 +402,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/document-types",
+				    url: getBaseServiceUrl() + "/document-types",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -417,7 +418,7 @@ define(["angularjs"],function(angular){
 				    docId=docId.replace(/[{}]/g, encodeURIComponent);
 				
 				$http({
-				    url: baseServiceUrl + "/documents/" + docId,
+				    url: getBaseServiceUrl() + "/documents/" + docId,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -434,7 +435,7 @@ define(["angularjs"],function(angular){
 				docId=docId.replace(/[{}]/g, encodeURIComponent);
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/" + processInstanceOid + 
+				    url: getBaseServiceUrl() + "/process-instances/" + processInstanceOid +
 				    	 "/documents/process-attachments/" + docId,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
@@ -452,7 +453,7 @@ define(["angularjs"],function(angular){
 				documentUid=documentUid.replace(/[{}]/g, encodeURIComponent);
 				
 				$http({
-				    url: baseServiceUrl + "/folders/" + folderUid + "/documents/" + documentUid,
+				    url: getBaseServiceUrl() + "/folders/" + folderUid + "/documents/" + documentUid,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -471,7 +472,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/" + processInstanceOid + "/notes",
+				    url: getBaseServiceUrl() + "/process-instances/" + processInstanceOid + "/notes",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -485,7 +486,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/",
+				    url: getBaseServiceUrl() + "/process-instances/",
 				    method: "POST",
 				    data: {
 							"processDefinitionId" : processDefinitionId
@@ -514,7 +515,7 @@ define(["angularjs"],function(angular){
 				}
 				
 				$http({
-				    url: baseServiceUrl + url,
+				    url: getBaseServiceUrl() + url,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -541,7 +542,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-definitions?startable=true",
+				    url: getBaseServiceUrl() + "/process-definitions?startable=true",
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -555,7 +556,7 @@ define(["angularjs"],function(angular){
 				var deferred = $q.defer();
 				
 				$http({
-				    url: baseServiceUrl + "/process-instances/" + processInstanceOid + "/notes",
+				    url: getBaseServiceUrl() + "/process-instances/" + processInstanceOid + "/notes",
 				    method: "POST",
 				    data: {
 							"processInstanceOid" : processInstanceOid,
@@ -574,7 +575,7 @@ define(["angularjs"],function(angular){
             var deferred = $q.defer();
             
             $http({
-                url: baseServiceUrl + "/activity-instances/" + activityInstanceOID + "/complete",
+                url: getBaseServiceUrl() + "/activity-instances/" + activityInstanceOID + "/complete",
                 method: "POST",
                 data: {}
             }).success(function(data, status, headers, config) {
@@ -589,7 +590,7 @@ define(["angularjs"],function(angular){
             var deferred = $q.defer();
             
             $http({
-                url: baseServiceUrl + "/activity-instances/" + activityInstanceOID + "/suspend",
+                url: getBaseServiceUrl() + "/activity-instances/" + activityInstanceOID + "/suspend",
                 method: "POST",
                 data: {}
             }).success(function(data, status, headers, config) {
@@ -604,7 +605,7 @@ define(["angularjs"],function(angular){
             var deferred = $q.defer();
             
             $http({
-                url: baseServiceUrl + "/activity-instances/" + activityInstanceOID + "/suspendAndSave",
+                url: getBaseServiceUrl() + "/activity-instances/" + activityInstanceOID + "/suspendAndSave",
                 method: "POST",
                 data: {}
             }).success(function(data, status, headers, config) {

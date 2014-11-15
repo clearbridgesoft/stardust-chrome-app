@@ -42,7 +42,7 @@ require(
 		  "jquery-mobile",
 		  "js/app","js/jqmRouteProvider","js/jqmWidgets","jquery-iscroll","js/libs/misc/iscroll"],
 		  
-		function(require, jquery, angularjs, jqueryMobile, app, jqmRouteProvider,jqmWidgets,jqueryIscroll,iscroll) {
+		function(require, $, angular, jqueryMobile, app, jqmRouteProvider,jqmWidgets,jqueryIscroll,iscroll) {
 			console.log(jqmRouteProvider);
 			
 			/*Specify our jquery mappings - all apps utilizing the back-end must supply a front-end with
@@ -57,6 +57,23 @@ require(
 							notesPage :  "#notesPage"   /*JQM data-role page, Notes*/
 						}
 			};
-			
-			app.init(options);
+
+			chrome.storage.local.get('baseUrl', function(data){
+				if (data.baseUrl) {
+					app.init(options);
+				} else {
+					var $label = $('<label for="BaseUrl">Please prove the server url: </label>'),
+						$input = $('<input id="BaseUrl" type="text">'),
+						$button = $('<button>Confirm</button>'),
+						$div = $('<div style="margin:auto;max-width: 768px;z-index: 1;position: relative"></div>').append($label, $input, $button);
+					$button.click(function(){
+						var val = $input.val();
+						if (!val) return;
+						window.serverBaseUrl = val;
+						$div.remove();
+						app.init(options);
+					});
+					$('body').prepend($div);
+				}
+			});
 		});

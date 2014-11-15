@@ -1013,7 +1013,7 @@ define([],function(){
 				
 				
 				/*Set up a few UI specific props*/
-				$scope.baseHref = workflowService.baseHref;
+				$scope.baseHref = workflowService.baseHref();
 				$scope.showMsg = false;
 				$scope.alertMessage = "";
 				$scope.uploadSuccesful = false;
@@ -1233,7 +1233,7 @@ define([],function(){
 				$scope.delegatePopupUI ={
 						setInputFocus : false
 				};
-				$scope.baseHref = workflowService.baseHref;
+				$scope.baseHref = workflowService.baseHref();
 				$scope.showMsg = false;
 				$scope.alertMessage = "";
 				$scope.uploadSuccesful = false;

@@ -4,7 +4,7 @@ chrome.app.runtime.onLaunched.addListener(function() {
 
 	chrome.app.window.create('index.html', {
 		'bounds': {
-			'width': screenWidth,
+			'width': screenWidth>=768?768:screenWidth,
 			'height': screenHeight
 		}
 	});

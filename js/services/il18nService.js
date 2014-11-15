@@ -4,23 +4,21 @@ define(["angularjs"],function(angular){
 		ngInjector = angular.injector(["ng"]),
 	    $http = ngInjector.get("$http"),
 	    $q = ngInjector.get("$q"),
-	    $window = ngInjector.get("$window"),    
-	    baseServiceUrl,
-	    baseUrl,
-	    propertyHashMap,
-	    href;
-	
-	href = $window.location.href;
-	baseUrl = href.substring(0,href.indexOf("/plugins"));
-	baseServiceUrl = href.substring(0,href.indexOf("/plugins"))+ "/services/rest/mobile-workflow";
+	    $window = ngInjector.get("$window"),
+	    propertyHashMap;
+
+	var getBaseServiceUrl = function() {
+		return $window.serverBaseUrl + "/services/rest/mobile-workflow";
+	};
 	
 	var getLanguageCode =function(){
 		var deferred = $q.defer();
 		
 		$http({
 		    //url: baseServiceUrl + "/" + (new Date()).getTime() + "/language",
-			url: baseServiceUrl + "/language",
-		    method: "GET"
+			url: getBaseServiceUrl() + "/language",
+		    method: "GET",
+			cache: true
 		}).success(function(data, status, headers, config) {
 			deferred.resolve(data);
 		}).error(function(data, status, headers, config) {
@@ -35,7 +33,7 @@ define(["angularjs"],function(angular){
 		console.log("HTTP.....................................GetProps");
 		$http({
 		    //url: baseServiceUrl + "/" + (new Date()).getTime() + "/mobile-workflow-client-messages/" + p_lang,
-		    url: baseServiceUrl + "/mobile-workflow-client-messages/" + p_lang,
+		    url: getBaseServiceUrl() + "/mobile-workflow-client-messages/" + p_lang,
 		    method: "GET"
 		}).success(function(data, status, headers, config) {
 			deferred.resolve(data);
