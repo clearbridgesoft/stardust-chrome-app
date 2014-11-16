@@ -9,9 +9,9 @@ Go to chrome://flags.
 Find "Experimental Extension APIs", and click its "Enable" link.
 Restart Chrome.
 
-###Load your app###
+##Load your app##
 
-To load your app, bring up the apps and extensions management page by clicking the settings icon  and choosing Tools > Settings  Extensions.
+To load your app, bring up the apps and extensions management page by clicking the settings icon  and choosing Tools > Settings > Extensions.
 
 Make sure the Developer mode checkbox has been selected.
 
