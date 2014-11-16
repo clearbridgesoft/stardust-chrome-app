@@ -8,9 +8,10 @@ Eclipse Stardust Mobile UI packaged as a Chrome App
 Go to chrome://flags.
 Find "Experimental Extension APIs", and click its "Enable" link.
 Restart Chrome.
-Load your app
 
-To load your app, bring up the apps and extensions management page by clicking the settings icon  and choosing Tools > Extensions.
+###Load your app###
+
+To load your app, bring up the apps and extensions management page by clicking the settings icon  and choosing Tools > Settings  Extensions.
 
 Make sure the Developer mode checkbox has been selected.
 
