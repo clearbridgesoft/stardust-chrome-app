@@ -16,8 +16,8 @@
 
 
 <div ng-show="showhotActivityInstance()" class="ng-hide">
-	<a ng-href="{{hotActivityInstanceHref()}}"  class="ipp-minimal jqm-cstm-inlineAlert jqm-cstm-success">
-		<span style="font-size: 0.7em;">{{TapToTextOne}} <span class="hide-media-sm">{{TapToTextTwo}}</span></span>
+	<a ng-href="#detailPage?id={{hotActivityInstance.oid}}&activeTab=formTab"  class="ipp-minimal jqm-cstm-inlineAlert jqm-cstm-success">
+		<span style="font-size: 0.7em;">{{uiText.tapto}} {{hotActivityInstance.name}} <span class="hide-media-sm">(#{{hotActivityInstance.oid}})</span></span>
 		<i class="fa fa-angle-right fa-2x ipp-pull-right ipp-pad-right-2x"></i>
 	</a>
 </div>

@@ -93,6 +93,8 @@ define([],function(){
 			
 			/*simple binding for our persistent header*/
 			"headerCtrl" : function($scope,$rootScope,il18nService){
+				var _appData = $rootScope.appData;
+
 				$scope.headerModel = new headerModel();
 				$scope.uiText = {
 						"title" : il18nService.getProperty("mobile.extheader.title"),
@@ -107,20 +109,11 @@ define([],function(){
 				});
 
 				$scope.showhotActivityInstance = function(){
-					return ($rootScope.appData.isActivityHot=='true' || $rootScope.appData.isActivityHot==true) && $rootScope.appData.activePage !='detailPage';
+					return (_appData.isActivityHot=='true' || _appData.isActivityHot==true) && _appData.activePage !='detailPage';
 				};
 
-				$scope.hotActivityInstanceHref = function(){
-					return "#detailPage?id=" + $rootScope.appData.hotActivityInstance.oid + "&activeTab=formTab";
-				};
+				$scope.hotActivityInstance = _appData.hotActivityInstance;
 
-				$scope.TapToTextOne = function(){
-					return $scope.uiText.tapto + " " + appData.hotActivityInstance.name;
-				};
-
-				$scope.TapToTextTwo = function(){
-					return '(#' + appData.hotActivityInstance.oid + ')';
-				};
 			},
 			
 			/*simple binding for our persistent footer*/
