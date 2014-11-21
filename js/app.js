@@ -27,7 +27,7 @@ define(function(require){
 	//app.controller( "startableProcessesCtrl", worklistControllers.startableProcessesCtrl);
 	//app.controller( "formCtrl",      worklistControllers.formCtrl);
 	//app.controller( "processCtrl",   worklistControllers.processCtrl);
-	//app.controller( "mainPageCtrl",  worklistControllers.mainPageCtrl);
+	app.controller( "mainPageCtrl",  worklistControllers.mainPageCtrl);
 	//app.controller( "documentViewerCtrl" , worklistControllers.documentViewerCtrl);
 	//app.controller( "repositoryRootCtrl" , worklistControllers.repositoryRootCtrl);
 	//app.controller( "documentSearchCtrl" , worklistControllers.documentSearchCtrl);
