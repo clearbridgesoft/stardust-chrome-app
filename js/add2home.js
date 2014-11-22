@@ -2,7 +2,6 @@
  * Add to Homescreen v2.0.11 ~ Copyright (c) 2013 Matteo Spinelli, http://cubiq.org
  * Released under MIT license, http://cubiq.org/license
  */
-
 var addToHome = (function (w, c) {
 
 	var nav = w.navigator,
@@ -314,7 +313,7 @@ var addToHome = (function (w, c) {
 
 	// Clear local and session storages (this is useful primarily in development)
 	function reset () {
-		c.storage.local.remove('addToHome');
+		w.localStorage.removeItem('addToHome');
 		w.sessionStorage.removeItem('addToHomeSession');
 	}
 

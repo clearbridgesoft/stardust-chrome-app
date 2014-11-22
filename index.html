@@ -1,3 +1,12 @@
+<!--
+* Copyright (c) 2011 SunGard CSA LLC and others. All rights reserved. This
+ * program and the accompanying materials are made available under the terms of
+ * the Eclipse Public License v1.0 which accompanies this distribution, and is
+ * available at http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors: SunGard CSA LLC - initial API and implementation and/or initial
+ * documentation
+ -->
 <!DOCTYPE HTML>
 <html>
 
@@ -14,11 +23,13 @@
 		<link rel='stylesheet' href='./css/lato/font-lato.css' type='text/css'>
 		<link rel="stylesheet" href="./css/jquery.mobile/jquery.mobile-1.4.0.min.css" />
 		<link rel="stylesheet" href="./css/font-awesome/css/font-awesome.css" />
+		<xlink rel="stylesheet" href="./css/font-awesome-temp/css/font-awesome-temp.css" />
+		<link rel="stylesheet" href="./css/starclipse/css/starclipse.css" />
 		<link rel="stylesheet" href="./css/jquery.mobile/jqm.custom.widgets.css" />
 		<link rel="stylesheet" href="./css/jquery.mobile/jquery.mobile.iscrollview.css" />
 		<link rel="stylesheet" href="css/add2home.css">
 		
-		<!-- STARDUST STYLE -->
+		<!-- STARDUST STYLE
 		<link rel="shortcut icon" sizes="196x196" href="./images/appStardust.png">
 		<link rel="apple-touch-icon" sizes="196x196" href="./images/appStardust.png">
 		<link rel="apple-touch-icon-precomposed" sizes="196x196" href="./images/appStardust.png">
@@ -26,18 +37,18 @@
 		
 		<link rel="stylesheet" href="./css/jquery.mobile/custom/stardustbase/themes/stardustbase2.0.css" />
 		<link rel="stylesheet" href="./css/ipp.stardust.css" />
-		<!-- STARDUST STYLE END -->
+		STARDUST STYLE END -->
 		
 		<!-- SUNGARD STYLE -->
-		<!--  
+
 		<link rel="shortcut icon" sizes="196x196" href="./images/appSunGard.png">
 		<link rel="apple-touch-icon" sizes="196x196" href="./images/appSunGard.png">
 		<link rel="apple-touch-icon-precomposed" sizes="196x196" href="./images/appSunGard.png">
 		<link rel="apple-touch-startup-image" href="./images/splashSunGard.png">
-		
-		<link rel="stylesheet" href="./css/jquery.mobile/custom/sungardbase/themes/sungardbase4.0.css" />
+
+		<link rel="stylesheet" href="./css/jquery.mobile/custom/sungardbase/themes/sungardbase8.0.css" />
 		<link rel="stylesheet" href="./css/ipp.sungard.css" />
-		-->
+
 		<!-- SUNGARD STYLE END-->
 		
 	</head>
@@ -52,8 +63,8 @@
 			 data-jqm-template data-jqm-widgets="toolbar" 
 			 data-template-url="templates/externalHeader.html">
 		</div>
-		
-		  EXTERNAL FOOTER
+
+		<!--  EXTERNAL FOOTER -->
 		<div class="external-footer"
 		     data-role="footer"
 		     data-theme="a"
@@ -65,14 +76,6 @@
 			 data-template-url="templates/baseFooter.html">
 		</div>
 
-		<!-- EXTERNAL PANEL RIGHT -->
-		<div data-role="panel" id="main-panel" data-position="right" data-display="overlay" data-theme="a"
-			 data-jqm-template
-			 data-jqm-widgets=""
-			 ng-controller="panelCtrl"
-			 data-template-url="templates/externalPanelRight.html">
-		</div>
-
 		<!--LOGIN PAGE -->
 		<div id="login" data-role="page" data-theme="c"
 			 ng-controller="loginCtrl"
@@ -81,14 +84,14 @@
 			 data-template-url="templates/loginPage.html" >
 		</div>
 
-		<!--<!-- MAIN PAGE -->-->
+		<!--<!-- MAIN PAGE -->
 		<div id="mainPage" data-role="page" data-theme="a"
 			 ng-controller="mainPageCtrl"
 			 data-jqm-template data-jqm-widgets=""
 			 data-template-url="templates/mainPage.html">
 		</div>
 
-		<!--<!-- WORKLIST LISTVIEW PAGE -->-->
+		<!--&lt;!&ndash; WORKLIST LISTVIEW PAGE &ndash;&gt;-->
 		<!--<div id="worklistListViewPage" data-theme="a" data-role="page"-->
 			 <!--ng-controller="worklistCtrl"-->
 			 <!--data-jqm-template-->
@@ -97,7 +100,7 @@
 			 <!--data-template-url="templates/worklistListViewPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- STARTABLE PROCESSES PAGE -->-->
+		<!--&lt;!&ndash; STARTABLE PROCESSES PAGE &ndash;&gt;-->
 		<!--<div id="startableProcessesPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="startableProcessesCtrl"-->
 			 <!--data-jqm-template-->
@@ -106,16 +109,16 @@
 			 <!--data-template-url="templates/startableProcessesPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- DETAIL PAGE -->-->
+		<!--&lt;!&ndash; DETAIL PAGE &ndash;&gt;-->
 		<!--<div id="detailPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="detailCtrl"-->
 			 <!--data-jqm-template-->
 			 <!--data-jqm-widgets="popup,listview"-->
 			 <!--data-bind-to="[activityModel.item.activatable,isHotActivityConflict,isMashupShowable,participantSearchModel.results]"-->
 			 <!--data-template-url="templates/detailPage.html">-->
-		<!--</div> <!-- DETAIL PAGE END -->-->
+		<!--</div> &lt;!&ndash; DETAIL PAGE END &ndash;&gt;-->
 
-		<!--<!-- FORM PAGE -->-->
+		<!--&lt;!&ndash; FORM PAGE &ndash;&gt;-->
 		<!--<div id="formPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="formCtrl"-->
 			 <!--data-jqm-template-->
@@ -123,7 +126,7 @@
 			 <!--data-template-url="templates/formPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- PROCESS PAGE -->-->
+		<!--&lt;!&ndash; PROCESS PAGE &ndash;&gt;-->
 		<!--<div id="processPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="processCtrl"-->
 			 <!--data-jqm-template-->
@@ -131,7 +134,7 @@
 			 <!--data-template-url="templates/processPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Document Viewer Page -->-->
+		<!--&lt;!&ndash; Document Viewer Page &ndash;&gt;-->
 		<!--<div id="documentViewerPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="documentViewerCtrl"-->
 			 <!--data-jqm-template-->
@@ -140,7 +143,7 @@
 			 <!--data-template-url="templates/documentViewerPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Repository Root Page -->-->
+		<!--&lt;!&ndash; Repository Root Page &ndash;&gt;-->
 		<!--<div id="repositoryRootPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="repositoryRootCtrl"-->
 			 <!--data-jqm-template-->
@@ -149,7 +152,7 @@
 			 <!--data-template-url="templates/repositoryRootPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Report Root Page -->-->
+		<!--&lt;!&ndash; Report Root Page &ndash;&gt;-->
 		<!--<div id="reportRootPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="reportRootCtrl"-->
 			 <!--data-jqm-template-->
@@ -158,7 +161,7 @@
 			 <!--data-template-url="templates/reportRootPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Report Viewer Page -->-->
+		<!--&lt;!&ndash; Report Viewer Page &ndash;&gt;-->
 		<!--<div id="reportViewerPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="reportViewerCtrl"-->
 			 <!--data-jqm-template-->
@@ -167,7 +170,7 @@
 			 <!--data-template-url="templates/reportViewerPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Search Landing Page -->-->
+		<!--&lt;!&ndash; Search Landing Page &ndash;&gt;-->
 		<!--<div id="searchLandingPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller=""-->
 			 <!--data-jqm-template-->
@@ -176,7 +179,7 @@
 			 <!--data-template-url="templates/searchLandingPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Document Search Page -->-->
+		<!--&lt;!&ndash; Document Search Page &ndash;&gt;-->
 		<!--<div id="documentSearchPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="documentSearchCtrl"-->
 			 <!--data-jqm-template-->
@@ -185,7 +188,7 @@
 			 <!--data-template-url="templates/documentSearchPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Activity Search Page -->-->
+		<!--&lt;!&ndash; Activity Search Page &ndash;&gt;-->
 		<!--<div id="activitySearchPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="activitySearchCtrl"-->
 			 <!--data-jqm-template-->
@@ -194,7 +197,7 @@
 			 <!--data-template-url="templates/activitySearchPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Process Search Page -->-->
+		<!--&lt;!&ndash; Process Search Page &ndash;&gt;-->
 		<!--<div id="processSearchPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="processSearchCtrl"-->
 			 <!--data-jqm-template-->
@@ -203,7 +206,7 @@
 			 <!--data-template-url="templates/processSearchPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Not Authorized Page -->-->
+		<!--&lt;!&ndash; Not Authorized Page &ndash;&gt;-->
 		<!--<div id="unauthorizedPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="unauthorizedCtrl"-->
 			 <!--data-jqm-template-->
@@ -211,7 +214,7 @@
 			 <!--data-template-url="templates/unauthorizedPage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Profile Page -->-->
+		<!--&lt;!&ndash; Profile Page &ndash;&gt;-->
 		<!--<div id="profilePage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="profileCtrl"-->
 			 <!--data-jqm-template-->
@@ -219,7 +222,7 @@
 			 <!--data-template-url="templates/profilePage.html">-->
 		<!--</div>-->
 
-		<!--<!-- Settings Page -->-->
+		<!--&lt;!&ndash; Settings Page &ndash;&gt;-->
 		<!--<div id="settingsPage" data-role="page" data-theme="a"-->
 			 <!--ng-controller="settingsCtrl"-->
 			 <!--data-jqm-template-->
@@ -230,6 +233,5 @@
 
 		<script type="application/javascript" src="js/add2home.js"></script>
 		<script type="text/javascript" data-main="js/MobileWorkflowMain" src="./js/libs/require/2.0.5/require.js"></script>
-      <!-- <script src="http://jsconsole.com/remote.js?8771A847-9D0C-40F6-AF7C-5764F32C2AF5"></script> -->		
 	</body>
 </html>
