@@ -58,22 +58,42 @@ require(
 						}
 			};
 
-			chrome.storage.local.get('baseUrl', function(data){
-				if (data.baseUrl) {
-					app.init(options);
-				} else {
-					var $label = $('<label for="BaseUrl">Please prove the server url: </label>'),
-						$input = $('<input id="BaseUrl" type="text">'),
-						$button = $('<button>Confirm</button>'),
-						$div = $('<div style="margin:auto;max-width: 768px;z-index: 1;position: relative"></div>').append($label, $input, $button);
-					$button.click(function(){
-						var val = $input.val();
-						if (!val) return;
-						window.serverBaseUrl = val;
-						$div.remove();
-						app.init(options);
-					});
-					$('body').prepend($div);
+			var db, request = indexedDB.open("stardust"), setting;
+
+			function init(){
+				var $label = $('<label for="BaseUrl">Please prove the server url: </label>'),
+					$input = $('<input id="BaseUrl" type="text">'),
+					$button = $('<button>Confirm</button>'),
+					$div = $('<div style="margin:auto;max-width: 768px;z-index: 1;position: relative"></div>').append($label, $input, $button);
+				if (setting) {
+					$input.val(setting.baseUrl);
 				}
-			});
+				$button.click(function(){
+					var val = $input.val();
+					if (!val) return;
+					window.serverBaseUrl = val;
+					if (!setting) {
+						setting = {};
+					}
+					setting.baseUrl = val;
+					db.transaction(["settings"], "readwrite").objectStore("settings").put(setting);
+					db.close();
+					$div.remove();
+					app.init(options);
+				});
+				$('body').prepend($div);
+			}
+
+			request.onsuccess = function(event) {
+				db = event.target.result;
+				db.transaction(["settings"]).objectStore("settings").get(1).onsuccess = function(event) {
+					setting = event.target.result;
+					init();
+				};
+			};
+
+			request.onupgradeneeded = function (event) {
+				db = event.target.result;
+				db.createObjectStore("settings", { autoIncrement : true });
+			};
 		});
