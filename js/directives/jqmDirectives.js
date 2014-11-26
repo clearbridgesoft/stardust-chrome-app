@@ -156,7 +156,6 @@ define(["jquery"],function(){
 		          comma delimited list*/
 		        var widgetTypes=attrs.jqmWidgets.split(","),
 		            widget,$widget,$widgets=[];
-		        
 		        /*build collection of all JQM widgets declared on our directive,
 		         *corresponding template must declare them using data-role attributes*/    
 		        for(var i=0;i<widgetTypes.length;i++){
@@ -165,7 +164,7 @@ define(["jquery"],function(){
 		            if($widget.length>0 && $widget[widget]){
 		              $widget[widget]();
 		              $widgets.push($widget);
-		            };
+		            }
 		        }
 		        
 		      $(element).enhanceWithin();

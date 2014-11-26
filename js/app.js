@@ -22,7 +22,7 @@ define(function(require){
 	app.controller( "footerCtrl", baseControllers.footerCtrl);
 	app.controller( "headerCtrl", baseControllers.headerCtrl);
 	//app.controller( "worklistCtrl",  worklistControllers.worklistCtrl);
-	//app.controller( "detailCtrl",    worklistControllers.detailCtrl);
+	app.controller( "detailCtrl",    worklistControllers.detailCtrl);
 	app.controller( "panelCtrl",     worklistControllers.panelCtrl);
 	//app.controller( "startableProcessesCtrl", worklistControllers.startableProcessesCtrl);
 	//app.controller( "formCtrl",      worklistControllers.formCtrl);
