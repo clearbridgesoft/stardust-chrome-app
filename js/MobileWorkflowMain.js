@@ -76,7 +76,7 @@ require(
 						setting = {};
 					}
 					setting.baseUrl = val;
-					db.transaction(["settings"], "readwrite").objectStore("settings").put(setting);
+					db.transaction(["settings"], "readwrite").objectStore("settings").put(setting, 1);
 					db.close();
 					$div.remove();
 					app.init(options);
