@@ -38,11 +38,11 @@ define(function(require){
 	//app.controller("unauthorizedCtrl"    , worklistControllers.unauthorizedCtrl);
 	//app.controller("profileCtrl"         , worklistControllers.profileCtrl);
 	//app.controller("settingsCtrl"        , worklistControllers.settingsCtrl);
-	//app.filter( "friendlyDate",        baseFilters.friendlyDate);
-	//app.filter( "serializeObject",   baseFilters.serializeObject);
-	//app.filter( "criticality",       baseFilters.criticality);
-	//app.filter( "absoluteTime",      baseFilters.absoluteTime);
-	//app.filter( "priority",          baseFilters.priority);
+	app.filter( "friendlyDate",        baseFilters.friendlyDate);
+	app.filter( "serializeObject",   baseFilters.serializeObject);
+	app.filter( "criticality",       baseFilters.criticality);
+	app.filter( "absoluteTime",      baseFilters.absoluteTime);
+	app.filter( "priority",          baseFilters.priority);
 	app.directive( "jqmTemplate",    jqmDirectives.jqmTemplate);
 	//app.directive("jqmPopup",        jqmDirectives.jqmPopup);
 	//app.directive("jqmLoader",       jqmDirectives.jqmLoader);

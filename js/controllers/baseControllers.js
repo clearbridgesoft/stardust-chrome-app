@@ -94,8 +94,6 @@ define([],function(){
 
 		/*simple binding for our persistent header*/
 		"headerCtrl" : function($scope,$rootScope,il18nService){
-			var _appData = $rootScope.appData;
-
 			$scope.headerModel = new headerModel();
 			$scope.uiText = {
 				"title" : il18nService.getProperty("mobile.extheader.title"),
@@ -108,13 +106,6 @@ define([],function(){
 					$scope.headerModel.showActivityNavBar = true;
 				});
 			});
-
-			$scope.showhotActivityInstance = function(){
-				return (_appData.isActivityHot=='true' || _appData.isActivityHot==true) && _appData.activePage !='detailPage';
-			};
-
-			$scope.hotActivityInstance = _appData.hotActivityInstance;
-
 		},
 
 		/*simple binding for our persistent footer*/

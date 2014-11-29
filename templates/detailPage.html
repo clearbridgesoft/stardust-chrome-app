@@ -171,20 +171,20 @@
 			</div>
 
 			<div style="border:solid 1px #ddd;">
-	        
+
 		        <span ng-show="participantSearchModel.showTargetTag"
 					  ng-click="participantSearchModel.showTargetTag=false;
 		              		    delegatePopupUI.setInputFocus=true"
 					  style="font-size:0.8em;padding:.1em .1em;margin-left:5px;"
 					  class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-d">
-		             
+
 		             <i ng-class="{'fa-users': participantSearchModel.selectedParticipant.type=='role',
 		                           'fa-sitemap' : participantSearchModel.selectedParticipant.type=='organization'}"
 						style="float:left;font-size:0.8em;padding:3px;"
 						class="fa fa-user ipp-color-secondary"></i>
-					   
+
 		             <i style="float:right;padding:2px;" class="fa fa-times"></i>
-		             
+
 		        	{{participantSearchModel.selectedParticipant.name}}
 		        </span>
 

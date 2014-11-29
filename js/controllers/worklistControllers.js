@@ -280,9 +280,7 @@ define([],function(){
 						.catch(deferred.reject);
 
 					return deferred.promise;
-				};
-
-				$scope.user = $rootScope.appData.user;
+				}
 
 				$scope.$on("jqm-navigate",function(e,edata){
 

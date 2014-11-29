@@ -147,7 +147,7 @@ define(["jquery"],function(){
 		  
 	  },
 	  
-	  "jqmTemplate" : function () {
+	  "jqmTemplate" : ['$parse', function ($parse) {
 		    var link=function(scope, element, attrs){
 		    	console.log("linking function...");
 		        console.log(element);
@@ -183,7 +183,7 @@ define(["jquery"],function(){
 		           }
 		           $(element).enhanceWithin();
 		         });
-		      },true); 
+		      },true);
 
 		    };
 		    
@@ -193,7 +193,7 @@ define(["jquery"],function(){
 		        templateUrl : function(element, attr) { return attr.templateUrl;},
 		        link: {post:link}
 		    };
-		  }
+		  }]
 	
 	};
 	

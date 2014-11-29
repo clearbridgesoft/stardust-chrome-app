@@ -43,7 +43,6 @@ require(
 		  "js/app","js/jqmRouteProvider","js/jqmWidgets","jquery-iscroll","js/libs/misc/iscroll"],
 		  
 		function(require, $, angular, jqueryMobile, app, jqmRouteProvider,jqmWidgets,jqueryIscroll,iscroll) {
-			console.log(jqmRouteProvider);
 			
 			/*Specify our jquery mappings - all apps utilizing the back-end must supply a front-end with
 			 *an element corresponding to each entry.*/
