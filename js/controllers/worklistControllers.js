@@ -478,7 +478,7 @@ define([],function(){
 						})
 						.finally(function(){
 							$scope.isAjaxLoading=false;
-							$scope.$apply();
+							//$scope.$apply();
 							edata.ui.bCDeferred.resolve();
 						});
 
@@ -714,7 +714,7 @@ define([],function(){
 							},$rootScope.appData.barDuration);
 						})
 						.finally(function(){
-							$scope.$apply();
+							//$scope.$apply();
 							edata.ui.bCDeferred.resolve();
 						});
 

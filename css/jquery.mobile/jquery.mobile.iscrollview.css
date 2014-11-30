@@ -42,6 +42,7 @@
  */
 .iscroll-scroller {
   /* Add any styles that you want to add to scrollers */
+  width: 100%;
 }
 
 /* The "fixed" elements are the elements that are outside of the wrapper. The widget will
