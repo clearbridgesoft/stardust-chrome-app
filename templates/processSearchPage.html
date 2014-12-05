@@ -1,19 +1,52 @@
 <div class="ipp-header" data-role="header">
 	<div style="float:left;margin-left:1.1em;margin-top:0.75em;">
 		 <a ng-show="!showResults" href="#" data-rel="back" class="ipp-icon-minimal">
-		 	<i style="color:#ffffff;" class="fa ipp-fs-2x fa-chevron-left"></i>
+		 	<i style="color:#ffffff;" class="sc ipp-fs-2x sc-chevron-l"></i>
 		 </a>
 		 <a ng-show="showResults" ng-click="showResults=false" href="#" class="ipp-icon-minimal">
-		 	<i style="color:#ffffff;" class="fa ipp-fs-2x fa-chevron-left"></i>
+		 	<i style="color:#ffffff;" class="sc ipp-fs-2x sc-chevron-l"></i>
 		 </a>
 	 </div>
      <h4>{{uiText.searchProcs}}</h4>
+     <div style="position:absolute;top:11px;right:1em;">
+	     <a ng-show="showResults"  class="ipp-icon-minimal" href="#processFilterPopup" data-rel="popup" data-transition="slide">
+	     	<i style="color:#FFF;" class="sc sc-arrow-stem-ud"></i>
+	     </a>
+     </div>
+     <div data-role="popup" id="processFilterPopup" data-theme="b">
+        <ul data-role="listview"  data-inset="true" style="min-width:210px;">
+            <li ng-click="getResults('newest');filter.sortBy='newest'">
+	            <a class="ipp-no-content ipp-center" href="#">
+	            	<span class="ipp-float-l">{{uiText.newest}}</span>
+	            	<i ng-show="filter.sortBy=='newest'" class="sc sc-check-large ipp-float-r"></i>
+	            </a>
+            </li>
+            <li ng-click="getResults('oldest');filter.sortBy='oldest'">
+	            <a class="ipp-no-content ipp-center" href="#">
+	            	<span class="ipp-float-l">{{uiText.oldest}}</span>
+	            	<i ng-show="filter.sortBy=='oldest'" class="sc sc-check-large ipp-float-r"></i>
+	            </a>
+	        </li>
+            <li ng-click="getResults('criticality');filter.sortBy='criticality'">
+            	<a class="ipp-no-content ipp-center" href="#">
+            		<span class="ipp-float-l">{{uiText.priority}}</span>
+            		<i ng-show="filter.sortBy=='criticality'" class="sc sc-check-large ipp-float-r"></i>
+            	</a>
+            </li>
+            <li ng-click="getResults('modified');filter.sortBy='modified'">
+            	<a class="ipp-no-content ipp-center" href="#">
+            		<span class="ipp-float-l">{{uiText.modified}}</span>
+            		<i ng-show="filter.sortBy=='modified'" class="sc sc-check-large ipp-float-r"></i>
+            	</a>
+            </li>
+        </ul>
+	</div>
 </div>
 
 <div  ng-show="hasError==true" 
       ng-click="hasError=false;" 
       class="ipp-bar ipp-bar-error">
-	<i class="fa fa-times-circle-o"></i>
+	<i class="sc sc-close-circle"></i>
 	<span>{{errorMessage}}</span>
 </div>
 
@@ -80,7 +113,11 @@
 		    	<span ng-click="processToggleState=!processToggleState;
 		    	               toggleAll(processSearchModel.processes,processToggleState,$event)" 
 		    	      class="ipp-li-count-secondary">
-		    		<i ng-class="{'fa-check-square':processToggleState}" class="fa fa-square"></i> {{uiText.all}}
+		    		<i ng-class="{'sc-check-box':
+		    		              (processSearchModel.processes|filter:{isChecked:true}).length==processSearchModel.processes.length,
+		    		              'sc-square':
+		    		              (processSearchModel.processes|filter:{isChecked:true}).length!=processSearchModel.processes.length}" 
+		    		   class="sc"></i> {{uiText.all}}
 		    	</span>
 		    </h4>
 		    <ul data-role="listview" data-theme="a">
@@ -88,8 +125,8 @@
 				    ng-click="process.isChecked=!process.isChecked;" 
 		            ng-repeat="process in processSearchModel.processes">
 		        	<i style="font-size:1.5em;"  
-		        	   ng-class="{'fa-check-square':process.isChecked}" 
-		        	   class="fa fa-square"></i>
+		        	   ng-class="{'sc-check-box':process.isChecked,'sc-square':!process.isChecked}" 
+		        	   class="sc"></i>
 		        	&nbsp;
 		        	<span class="ipp-fs-small ipp-light ipp-fw-light">{{process.name}}</span>
 	        	</li>
@@ -105,15 +142,19 @@
 		    	<span ng-click="stateToggleState=!stateToggleState;
 		    	               toggleAll(processSearchModel.states,stateToggleState,$event)"
 		    	      class="ipp-li-count-secondary">
-		    		<i ng-class="{'fa-check-square':stateToggleState}" class="fa fa-square"></i> {{uiText.all}}
+		    		<i ng-class="{'sc-check-box':
+		    		              (processSearchModel.states|filter:{isChecked:true}).length==processSearchModel.states.length,
+		    		              'sc-square':
+		    		              (processSearchModel.states|filter:{isChecked:true}).length!=processSearchModel.states.length}" 
+		    		   class="sc"></i> {{uiText.all}}
 		    	</span>
 		    </h2>
 		    <ul data-role="listview">
 				<li ng-init="state.isChecked=false"
 				    ng-click="state.isChecked=!state.isChecked;" 
 		            ng-repeat="state in processSearchModel.states">
-		        	<i ng-class="{'fa-check-square':state.isChecked}" 
-		        	   class="fa fa-square ipp-fs-2x"></i>
+		        	<i ng-class="{'sc-check-box':state.isChecked,'sc-square':!state.isChecked}" 
+		        	   class="sc ipp-fs-2x"></i>
 		        	&nbsp;
 		        	<span class="ipp-fs-small ipp-light ipp-fw-light">{{state.name}}</span>
 		        </li>
@@ -123,8 +164,8 @@
 		</ul>
 	</div>
 	
-	<a ng-click="getResults();" href="#" class="ui-btn ui-btn-d ui-corner-all ipp-margin-h-1x">
-		<i class="fa fa-search ipp-pad-right-4x"></i>{{uiText.submit}}
+	<a ng-click="getResults(filter.sortBy);" href="#" class="ui-btn ui-btn-d ui-corner-all ipp-margin-h-1x">
+		<i class="sc sc-search ipp-pad-right-4x"></i>{{uiText.submit}}
 	</a>
 </div>
 
@@ -145,14 +186,29 @@
 	    		</p>
 	    		
 	    		<div class="ui-li-aside">
-         			<i class="fa fa-clock-o ipp-lighter ipp-fs-smaller"></i>
+         			<i class="sc sc-clock ipp-lighter ipp-fs-smaller"></i>
 
          			<span class="ipp-fs-smallest ipp-lighter ipp-fw-normal">
          			      {{process.startTimestamp | friendlyDate}}</span>
          		</div>
 
-	    		<i class="fa fa-1x fa-chevron-right ipp-nav-icon-right ipp-margin-top-1x"></i>
+	    		<i class="sc sc-chevron-r ipp-nav-icon-right ipp-margin-top-1x"></i>
 			</a>
+		</li>
+		<li class="ipp-center">
+			<i ng-if="processSearchModel.paginationResponse.rowFrom !=0"
+			   ng-click="getResults(filter.sortBy,-1)" 
+			   class="sc sc-chevron-l ipp-margin-h-1x"></i>
+			<span>
+				{{processSearchModel.paginationResponse.rowFrom + 1}}
+				-
+				{{processSearchModel.paginationResponse.rowFrom + processSearchModel.paginationResponse.resultSetSize}}
+				&nbsp;of
+				{{processSearchModel.paginationResponse.totalCount}}
+			</span>
+			<i ng-if="(processSearchModel.paginationResponse.rowFrom + processSearchModel.paginationResponse.resultSetSize) < processSearchModel.paginationResponse.totalCount"
+			   ng-click="getResults(filter.sortBy,1)" 
+			   class="sc sc-chevron-r ipp-margin-h-1x"></i>
 		</li>
 	</ul>	
 	

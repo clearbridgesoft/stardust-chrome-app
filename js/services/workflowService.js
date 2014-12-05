@@ -38,6 +38,22 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
+			
+			"logout" : function(){
+				var deferred = $q.defer();
+				
+				$http({
+				    url: baseServiceUrl + "/logout",
+				    method: "POST",
+				    data: {}
+				}).success(function(data, status, headers, config) {
+					deferred.resolve(data);
+				}).error(function(data, status, headers, config) {
+					deferred.reject(status);
+				});
+				return deferred.promise;
+			},
+			
 			"baseHref" : baseServiceUrl,
 			
 			"activate" : function(activityOid){
@@ -56,11 +72,18 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
-			"getWorklist" : function(){
-				var deferred = $q.defer();
+			"getWorklist" : function(sortBy,rowFrom,pageSize){
+				var deferred = $q.defer(),
+					sortString="";
 				
+				if(sortBy){
+					sortString ="?sort=" + sortBy;
+				}
 				$http({
-				    url: baseServiceUrl + "/worklist",
+				    url: baseServiceUrl + "/worklist?" +
+										  "sortKey=" + sortBy + 
+										  "&rowFrom=" + rowFrom +
+										  "&pageSize=" + pageSize,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -278,58 +301,57 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
-			"getParticipantMatches" : function(val){
+			"getParticipantMatches" : function(activityOID, val){
 				var deferred = $q.defer(),
-					results=[],
-					data=[
-					      {"name" : "Alan", "type" : "user"},
-					      {"name" : "Amy", "type" : "user"},
-					      {"name" : "Aaron", "type" : "user"},
-					      {"name" : "Anistasia", "type" : "user"},
-					      {"name" : "Arthur", "type" : "user"},
-					      {"name" : "Anissa", "type" : "user"},
-					      {"name" : "Alex", "type" : "user"},
-					      {"name" : "Arnold", "type" : "user"},
-					      {"name" : "Alexis", "type" : "user"},
-					      {"name" : "Anne", "type" : "user"},
-					      {"name" : "Alfonse", "type" : "user"},
-					      {"name" : "Annie", "type" : "user"},
-					      {"name" : "Architect", "type" : "role"},
-					      {"name" : "Auditor", "type" : "role"},
-					      {"name" : "Accounts", "type" : "role"},
-					      {"name" : "Approval", "type" : "role"},
-					      {"name" : "Adjuster", "type" : "role"},
-					      {"name" : "Analysis", "type" : "role"},
-					      {"name" : "Accounts-l2", "type" : "role"},
-					      {"name" : "Accounting", "type" : "organization"},
-					      {"name" : "Advertising", "type" : "organization"},
-					      {"name" : "Asia", "type" : "organization"},
-					      {"name" : "Audits - Internal", "type" : "organization"},
-					      {"name" : "America - North", "type" : "organization"},
-					      {"name" : "America - South", "type" : "organization"},
-					      {"name" : "Audits - External", "type" : "organization"}
-					];
+				    nameString = "";
 				
-				data.forEach(function(v){
-					if(v.name.indexOf(val) > -1){
-						console.log("matched:" + v.name + " - " + val);
-						results.push(v);
-					}
+				if (val) {
+					nameString = "?name=" + val;
+				}
+				
+				$http({
+				    url: baseServiceUrl + "/activity-instances/" + activityOID + "/delegates" + nameString,
+				    method: "GET"
+				}).success(function(data, status, headers, config) {
+					deferred.resolve(data.data);
+				}).error(function(data, status, headers, config) {
+					deferred.reject(status);
 				});
-				deferred.resolve(results);
+				
 				return deferred.promise;
 			},
 			
-			"getFilteredDocuments" : function(name,start,end,ids){
+			"delegateActivity" : function(activityOID, id){
+				var deferred = $q.defer();				
+				if (id) {
+					$http({
+					    url: baseServiceUrl + "/activity-instances/" + activityOID + "/delegates/" + id,
+					    method: "POST"
+					}).success(function(data, status, headers, config) {
+						deferred.resolve(data.data);
+					}).error(function(data, status, headers, config) {
+						deferred.reject(status);
+					});
+				} else {
+					// TODO
+				}
+				
+				return deferred.promise;
+			},
+			
+			"getFilteredDocuments" : function(name,start,end,ids,sortBy,rowFrom,pageSize){
 				var deferred = $q.defer(),
 				 	ids=ids.replace(/[{}]/g, encodeURIComponent);
 				
 				$http({
 				    url: baseServiceUrl + "/documents?" + 
 				    					  "searchText=" + name +
-				    					  "createFromTimestamp=" + start +
-				    					  "createToTimestamp=" + end + 
-				    					  "documentTypeIds=" + ids,
+				    					  "&createFromTimestamp=" + start +
+				    					  "&createToTimestamp=" + end + 
+				    					  "&documentTypeIds=" + ids +
+				    					  "&sortKey=" + sortBy + 
+				    					  "&rowFrom=" + rowFrom +
+				    					  "&pageSize=" + pageSize,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -340,15 +362,19 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
-			"getFilteredActivities" : function(start,end,ids,states){
+			"getFilteredActivities" : function(start,end,processIds,ids,states,sortBy,rowFrom,pageSize){
 				var deferred = $q.defer();
 				
 				$http({
 				    url: baseServiceUrl + "/activity-instances?" + 
 				    					  "startedFromTimestamp=" + start +
 				    					  "&startedToTimestamp=" + end +
-				    					  "&activityIds=" + ids + 
-				    					  "&states=" + states,
+				    					  "&processDefinitionIds=" + processIds +
+				    					  "&activityIds=" + ids +
+				    					  "&states=" + states +
+				    					  "&sortKey=" + sortBy +
+				    					  "&rowFrom=" + rowFrom + 
+				    					  "&pageSize=" + pageSize,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -359,7 +385,7 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
-			"getFilteredProcesses" : function(start,end,ids,states){
+			"getFilteredProcesses" : function(start,end,ids,states,sortBy,rowFrom,pageSize){
 				//process-instances?startedFromTimestamp=&startedToTimestamp=&processDefinitionIds=&states=
 				var deferred = $q.defer();
 				
@@ -368,7 +394,10 @@ define(["angularjs"],function(angular){
 				    					  "startedFromTimestamp=" + start +
 				    					  "&startedToTimestamp=" + end +
 				    					  "&processDefinitionIds=" + ids +
-				    					  "&states=" + states,
+				    					  "&states=" + states +
+				    					  "&sortKey=" + 'newest' +
+				    					  "&rowFrom=" + rowFrom +
+				    					  "&pageSize=" + pageSize ,
 				    method: "GET"
 				}).success(function(data, status, headers, config) {
 					deferred.resolve(data);
@@ -498,9 +527,20 @@ define(["angularjs"],function(angular){
 				return deferred.promise;
 			},
 			
-			"setProcessPriority" : function(processInstanceOid,priority){
+			"setProcessPriority" : function(processInstanceOid, priority) {
 				var deferred = $q.defer();
-				deferred.resolve();
+				
+				$http({
+				    url: baseServiceUrl + "/process-instances/" + processInstanceOid,
+				    method: "POST",
+				    data: {
+							"priority" : priority
+						}
+				}).success(function(data, status, headers, config) {
+					deferred.resolve(data);
+				}).error(function(data, status, headers, config) {
+					deferred.reject(status);
+				});
 				return deferred.promise;
 			},
 			
@@ -613,8 +653,22 @@ define(["angularjs"],function(angular){
                deferred.reject(status);
             });
             return deferred.promise;
-         }
-			
+         },
+         
+         "getVersionAndCopyrightInfo" : function() {
+				var deferred = $q.defer();
+				
+				$http({
+				    url: baseServiceUrl + "/versionAndCopyrightInfo",
+				    method: "GET"
+				}).success(function(data, status, headers, config) {
+					deferred.resolve(data);
+				}).error(function(data, status, headers, config) {
+					deferred.reject(status);
+				});
+				
+				return deferred.promise;
+         }			
 		};
 	
 	/*Angular window message handling setup*/
