@@ -1844,7 +1844,8 @@ $.mobile.widget = $.Widget;
           
           // Set document.domain for the Iframe document as well, if necessary.
           domain && iframe_doc.write( '<script>document.domain="' + domain + '"<\/script>' );
-          
+
+			console.log(1)
           iframe_doc.close();
           
           // Update the Iframe's hash, for great justice.
@@ -2010,7 +2011,7 @@ function transform3dTest() {
 
 	el = document.createElement( "div" );
 	transforms = {
-		// We’re omitting Opera for the time being; MS uses unprefixed.
+		// Weï¿½re omitting Opera for the time being; MS uses unprefixed.
 		"MozTransform": "-moz-transform",
 		"transform": "transform"
 	};
@@ -6518,6 +6519,7 @@ $.widget( "mobile.dialog", {
 
 	// Close method goes back in history
 	close: function() {
+		console.log(55555);
 		var hist = $.mobile.navigate.history;
 
 		if ( this._isCloseable ) {
@@ -9959,6 +9961,7 @@ $.widget( "mobile.popup", {
 		theEvent.preventDefault();
 		theEvent.stopImmediatePropagation();
 		if ( this.options.dismissible ) {
+			console.log(2);
 			this.close();
 		}
 		return false;
@@ -10157,6 +10160,7 @@ $.widget( "mobile.popup", {
 
 		if ( newOptions.disabled !== undefined ) {
 			if ( newOptions.disabled ) {
+				console.log(3);
 				this.close();
 			}
 		}
@@ -10566,6 +10570,7 @@ $.widget( "mobile.popup", {
 	_destroy: function() {
 		if ( $.mobile.popup.active === this ) {
 			this.element.one( "popupafterclose", $.proxy( this, "_unenhance" ) );
+			console.log(4);
 			this.close();
 		} else {
 			this._unenhance();
@@ -10700,6 +10705,7 @@ $.widget( "mobile.popup", {
 	},
 
 	close: function() {
+		console.log(88888);
 		// make sure close is idempotent
 		if ( $.mobile.popup.active !== this ) {
 			return this;
@@ -10707,7 +10713,8 @@ $.widget( "mobile.popup", {
 
 		this._scrollTop = this.window.scrollTop();
 
-		if ( this.options.history && this.urlAltered ) {
+		console.log(window.history, 999);
+		if ( this.options.history && this.urlAltered && window.history && window.history.go) {
 			$.mobile.back();
 			this.urlAltered = false;
 		} else {

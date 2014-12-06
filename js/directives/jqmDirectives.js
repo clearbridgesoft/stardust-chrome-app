@@ -147,7 +147,7 @@ define(["jquery"],function(){
 		  
 	  },
 	  
-	  "jqmTemplate" : ['$parse', function ($parse) {
+	  "jqmTemplate" : function () {
 		    var link=function(scope, element, attrs){
 		    	console.log("linking function...");
 		        console.log(element);
@@ -193,7 +193,7 @@ define(["jquery"],function(){
 		        templateUrl : function(element, attr) { return attr.templateUrl;},
 		        link: {post:link}
 		    };
-		  }]
+		  }
 	
 	};
 	

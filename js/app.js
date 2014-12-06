@@ -80,7 +80,8 @@ define(function(require){
 					"refresh"         : il18nService.getProperty("mobile.error.document.refresh"),
 					"folder"          : il18nService.getProperty("mobile.error.folder"),
 					"priority"        : il18nService.getProperty("mobile.error.process.priority"),
-					"genericSave"     : il18nService.getProperty("mobile.error.general.save")
+					"genericSave"     : il18nService.getProperty("mobile.error.general.save"),
+					"delegation"      : il18nService.getProperty("mobile.error.delegation")
 				}
 		};
 
@@ -148,6 +149,7 @@ define(function(require){
 						$.mobile.navigate(data.target,data.payload);
 					}
 					else{
+						console.log(111111);
 						$.mobile.back();
 					}
 				});
@@ -160,14 +162,14 @@ define(function(require){
 				        "iscroll_onpullup"   : function(){console.log("pullup");}
 			        });
 			      });
-				
+
 				/*Show our loading gif*/
-				$.mobile.loading( "show", {
-					  text: "foo",
-					  textVisible: false,
-					  theme: "a",
-					  html: ""
-					});
+				//$.mobile.loading( "show", {
+				//	  text: "foo",
+				//	  textVisible: false,
+				//	  theme: "a",
+				//	  html: ""
+				//	});
 		
 		});//finally end
 	};
