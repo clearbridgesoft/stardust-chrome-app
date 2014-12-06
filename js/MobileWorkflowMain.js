@@ -16,7 +16,7 @@ require
 			paths : {
 				'jquery' 		  : [ 'js/libs/jquery/jquery-1.7.2.min'],
 				'jquery-router'   : [ 'js/libs/jquery/plugins/jquery.mobile.router.min'],
-				'jquery-mobile'   : [ 'js/libs/jquery/plugins/jquery.mobile-1.4.0'],
+				'jquery-mobile'   : [ 'js/libs/jquery/plugins/jquery.mobile-1.4.0.min'],
 				'jquery-iscroll'  : [ 'js/libs/jquery/plugins/jquery.mobile.iscrollview.min'],
 				'angularjs' 	  : [ 'js/libs/angular/angular.1.2.11.min']
 			},
