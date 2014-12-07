@@ -12,7 +12,7 @@ define(["jquery"],function(){
 		"jqmLoader" : function(){
 		    
 		    var link=function(scope,element,attrs){
-		      console.log(element);
+		      //console.log(element);
 		      
 		      var options = {
 		        "html"        : attrs.jqmHtml || "",
@@ -150,7 +150,7 @@ define(["jquery"],function(){
 	  "jqmTemplate" : function () {
 		    var link=function(scope, element, attrs){
 		    	console.log("linking function...");
-		        console.log(element);
+		        //console.log(element);
 		        /*Acquire array of all jqm widget dependencies in our template, must
 		          be declared on our data-jqm-widgets attribute as a 
 		          comma delimited list*/

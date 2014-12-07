@@ -10,7 +10,8 @@
 	},
 	"permissions": [
 		"storage",
-		"http://*/"
+		"http://*/",
+		"webview"
 	],
 	"offline_enabled": false,
 	"icons": {

@@ -149,7 +149,6 @@ define(function(require){
 						$.mobile.navigate(data.target,data.payload);
 					}
 					else{
-						console.log(111111);
 						$.mobile.back();
 					}
 				});

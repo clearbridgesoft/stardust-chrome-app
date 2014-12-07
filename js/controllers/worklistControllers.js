@@ -1344,7 +1344,10 @@ define([],function(){
 
 			},
 
-			"detailCtrl" : function($scope,$rootScope,$filter,$sce,$q,$timeout,utilService,workflowService,il18nService){
+			"detailCtrl" : function($scope,$rootScope,$filter,$sce,$q,$timeout,utilService,workflowService,il18nService, $element){
+
+				var _serverBaseSubpath = /\/[^\/]+$/i.exec(window.serverBaseUrl)[0],
+					_serverBaseUrl = window.serverBaseUrl.substring(0, window.serverBaseUrl.indexOf(_serverBaseSubpath));
 
 				$scope.uiText={
 					"activity"     : il18nService.getProperty("mobile.detail.tabs.activity"),
@@ -1380,6 +1383,15 @@ define([],function(){
 					"addafile"     : il18nService.getProperty("mobile.fileupload.header")
 				}
 
+				function _setWebviewSrc() {
+					setTimeout(function(){
+						var $webview = $element.find('webview')[0];
+						if ($webview){
+							$webview.src  = $scope.mashupModel.externalUrl;
+						}
+					},100);
+				}
+
 				/*Filter file name for supported image type extensions*/
 				$scope.isImageType = utilService.isImageType;
 
@@ -1413,6 +1425,7 @@ define([],function(){
 					//Check so that we dont overwrite an activated form
 					if($scope.mashupModel.externalUrl=="#"){
 						$scope.mashupModel.externalUrl="blank.html";
+						_setWebviewSrc();
 					}
 				};
 				$scope.initModels();
@@ -1448,7 +1461,8 @@ define([],function(){
 										"&isMobileClient=true";
 									}
 								}
-								$scope.mashupModel.externalUrl= $sce.trustAsResourceUrl(url);
+								$scope.mashupModel.externalUrl= _serverBaseUrl +url;
+								_setWebviewSrc();
 								$scope.tabModel.activeSubView="form";
 							}
 
@@ -1544,7 +1558,8 @@ define([],function(){
 							/*Load new data for iframe, as soon as we modify externalUrl on our scope the 
 							 iframe will trigger a load.*/
 
-							$scope.mashupModel.externalUrl= $sce.trustAsResourceUrl(url);
+							$scope.mashupModel.externalUrl= _serverBaseUrl + url;
+							_setWebviewSrc();
 							$scope.mashupModel.interactionId= data.contexts.externalWebApp ? data.contexts.externalWebApp.interactionId : data.contexts["default"].interactionId;
 
 							$rootScope.appData.isActivityHot = true;
@@ -1600,7 +1615,7 @@ define([],function(){
 				$scope.uploadReporter ={
 					onProgress: function(e){
 						console.log("Document Upload Progress...");
-						console.log(e);
+						//console.log(e);
 					},
 					onLoad: function(e){
 						$scope.$apply(function(){
@@ -1636,6 +1651,7 @@ define([],function(){
 				$scope.$on("login",function(e,d){
 					if($scope.mashupModel){
 						$scope.mashupModel.externalUrl="blank.html";
+						_setWebviewSrc();
 					}
 				});
 
@@ -1646,6 +1662,7 @@ define([],function(){
 						case "suspendAndSave" :
 							console.log("DetailCtrl received activityStatusChangeEvent, intiating navigation...");
 							$scope.mashupModel.externalUrl= "blank.html";
+							_setWebviewSrc();
 							$scope.mashupModel.interactionId="";
 							utilService.navigateTo($rootScope,"#worklistListViewPage");
 							break;
