@@ -1385,12 +1385,19 @@ define([],function(){
 
 				function _setWebviewSrc() {
 					setTimeout(function(){
-						var $webview = $element.find('webview')[0];
-						if ($webview){
-							$webview.src  = $scope.mashupModel.externalUrl;
+						$element.find('webview').remove();
+						if ($scope.mashupModel.externalUrl) {
+							$element.find('#webviewContainer').append('<webview  style="height:600px;width:100%" src="' +
+							$scope.mashupModel.externalUrl +'"></webview>');
 						}
 					},100);
 				}
+
+				$scope.$watch('tabModel.activeSubView', function(val){
+					if (val=='form') {
+						_setWebviewSrc();
+					}
+				});
 
 				/*Filter file name for supported image type extensions*/
 				$scope.isImageType = utilService.isImageType;
@@ -1424,7 +1431,7 @@ define([],function(){
 
 					//Check so that we dont overwrite an activated form
 					if($scope.mashupModel.externalUrl=="#"){
-						$scope.mashupModel.externalUrl="blank.html";
+						$scope.mashupModel.externalUrl="";
 						_setWebviewSrc();
 					}
 				};
@@ -1462,7 +1469,6 @@ define([],function(){
 									}
 								}
 								$scope.mashupModel.externalUrl= _serverBaseUrl +url;
-								_setWebviewSrc();
 								$scope.tabModel.activeSubView="form";
 							}
 
@@ -1650,7 +1656,7 @@ define([],function(){
 
 				$scope.$on("login",function(e,d){
 					if($scope.mashupModel){
-						$scope.mashupModel.externalUrl="blank.html";
+						$scope.mashupModel.externalUrl="";
 						_setWebviewSrc();
 					}
 				});
@@ -1661,7 +1667,7 @@ define([],function(){
 						case "suspend"        :
 						case "suspendAndSave" :
 							console.log("DetailCtrl received activityStatusChangeEvent, intiating navigation...");
-							$scope.mashupModel.externalUrl= "blank.html";
+							$scope.mashupModel.externalUrl= "";
 							_setWebviewSrc();
 							$scope.mashupModel.interactionId="";
 							utilService.navigateTo($rootScope,"#worklistListViewPage");
