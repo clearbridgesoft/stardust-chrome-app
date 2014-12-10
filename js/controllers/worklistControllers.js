@@ -1386,18 +1386,14 @@ define([],function(){
 				function _setWebviewSrc() {
 					setTimeout(function(){
 						$element.find('webview').remove();
-						if ($scope.mashupModel.externalUrl) {
-							$element.find('#webviewContainer').append('<webview  style="height:600px;width:100%" src="' +
-							$scope.mashupModel.externalUrl +'"></webview>');
+						var url = $scope.mashupModel.externalUrl;
+						if (url) {
+							$element.find('#webviewContainer').append('<webview  style="height:600px;width:100%" src="' + url +'"></webview>');
 						}
 					},100);
 				}
 
-				$scope.$watch('tabModel.activeSubView', function(val){
-					if (val=='form') {
-						_setWebviewSrc();
-					}
-				});
+				$scope.$watch('mashupModel.externalUrl', _setWebviewSrc);
 
 				/*Filter file name for supported image type extensions*/
 				$scope.isImageType = utilService.isImageType;
@@ -1432,7 +1428,6 @@ define([],function(){
 					//Check so that we dont overwrite an activated form
 					if($scope.mashupModel.externalUrl=="#"){
 						$scope.mashupModel.externalUrl="";
-						_setWebviewSrc();
 					}
 				};
 				$scope.initModels();
@@ -1565,7 +1560,6 @@ define([],function(){
 							 iframe will trigger a load.*/
 
 							$scope.mashupModel.externalUrl= _serverBaseUrl + url;
-							_setWebviewSrc();
 							$scope.mashupModel.interactionId= data.contexts.externalWebApp ? data.contexts.externalWebApp.interactionId : data.contexts["default"].interactionId;
 
 							$rootScope.appData.isActivityHot = true;
@@ -1657,7 +1651,6 @@ define([],function(){
 				$scope.$on("login",function(e,d){
 					if($scope.mashupModel){
 						$scope.mashupModel.externalUrl="";
-						_setWebviewSrc();
 					}
 				});
 
@@ -1668,7 +1661,6 @@ define([],function(){
 						case "suspendAndSave" :
 							console.log("DetailCtrl received activityStatusChangeEvent, intiating navigation...");
 							$scope.mashupModel.externalUrl= "";
-							_setWebviewSrc();
 							$scope.mashupModel.interactionId="";
 							utilService.navigateTo($rootScope,"#worklistListViewPage");
 							break;
