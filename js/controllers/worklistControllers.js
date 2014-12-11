@@ -1383,17 +1383,21 @@ define([],function(){
 					"addafile"     : il18nService.getProperty("mobile.fileupload.header")
 				}
 
-				function _setWebviewSrc() {
-					setTimeout(function(){
-						$element.find('webview').remove();
-						var url = $scope.mashupModel.externalUrl;
-						if (url) {
-							$element.find('#webviewContainer').append('<webview  style="height:600px;width:100%" src="' + url +'"></webview>');
-						}
-					},100);
-				}
+				var _setWebviewSrc = utilService.debounce(function(){
+					$element.find('webview').remove();
+					var url = $scope.mashupModel.externalUrl;
+					if (url) {
+						$element.find('#webviewContainer').append('<webview  style="height:600px;width:100%" src="' + url +'"></webview>');
+					}
+				},100);
 
 				$scope.$watch('mashupModel.externalUrl', _setWebviewSrc);
+
+				$scope.$watch('tabModel.activeSubView', function(val){
+					if(val == 'form') {
+						_setWebviewSrc();
+					}
+				});
 
 				/*Filter file name for supported image type extensions*/
 				$scope.isImageType = utilService.isImageType;
