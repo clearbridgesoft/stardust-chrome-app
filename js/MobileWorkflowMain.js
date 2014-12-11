@@ -70,7 +70,7 @@ require(
 				$button.click(function(){
 					var val = $input.val();
 					if (!val) return;
-					window.serverBaseUrl = val;
+					window.serverBaseUrl = val.replace(new RegExp("[\/]+$"), '');
 					if (!setting) {
 						setting = {};
 					}
