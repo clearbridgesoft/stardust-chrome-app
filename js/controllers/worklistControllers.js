@@ -1383,27 +1383,61 @@ define([],function(){
 					"addafile"     : il18nService.getProperty("mobile.fileupload.header")
 				}
 
-				var _setWebviewSrc = utilService.debounce(function(){
-					$element.find('webview').remove();
-					var url = $scope.mashupModel.externalUrl;
-					if (url) {
-						$element.find('#webviewContainer').append('<webview  style="height:600px;width:100%" src="' + url +'"></webview>');
-					}
-				},100);
+				var hotInstance,
+					webview,
+					_setWebviewSrc = utilService.debounce(function(){
+						var url = $scope.mashupModel.externalUrl;
+						if (!webview) _initWebView();
+						webview.src = url?url:'about:blank';
+					},100);
 
-				$scope.$watch('mashupModel.externalUrl', _setWebviewSrc);
+				function _initWebView(){
+					hotInstance = $rootScope.appData.hotActivityInstance;
+					webview = $element.find('webview')[0];
 
-				$scope.$watch('tabModel.activeSubView', function(val){
-					if(val == 'form') {
-						_setWebviewSrc();
-					}
-				});
+					webview.addEventListener('contentload', function() {
+						webview.contentWindow.postMessage('whoseyourdady','*');
+					});
+
+					webview.addEventListener('message', function(event){
+						var oid = hotInstance.oid;
+						if(!oid) return;
+
+						if(event.data == "complete"){
+							workflowService.completeActivity(oid)
+								.then(function(){
+									$rootScope.$broadcast(
+										"activityStatusChange",
+										{"oid" : oid, "newStatus" : "complete"}
+									);
+								}).catch();
+						}
+						else if(event.data == "suspend"){
+							workflowService.suspendActivity(oid)
+								.then(function(){
+									$rootScope.$broadcast(
+										"activityStatusChange",
+										{oid : oid, newStatus : "suspend"});
+								}).catch();
+						}
+						else if(event.data == "suspendAndSave"){
+							workflowService.suspendAndSaveActivity(oid)
+								.then(function(){
+									$rootScope.$broadcast(
+										"activityStatusChange",
+										{"oid" : oid, "newStatus" : "suspendAndSave"}
+									);
+								}).catch();
+						}
+					});
+				}
 
 				/*Filter file name for supported image type extensions*/
 				$scope.isImageType = utilService.isImageType;
 
 				/*Initialize our reinitialize our models*/
 				$scope.initModels=function(){
+
 					$scope.notesModel = new notesModel();
 					$scope.errorModel=new errorModel();
 					$scope.infoModel = new infoModel();
@@ -1433,6 +1467,17 @@ define([],function(){
 					if($scope.mashupModel.externalUrl=="#"){
 						$scope.mashupModel.externalUrl="";
 					}
+
+					$scope.$watch('mashupModel.externalUrl', function(val){
+						if (val !== undefined) {
+							_setWebviewSrc();
+						}
+					});
+					$scope.$watch('tabModel.activeSubView', function(val){
+						if(val == 'form') {
+							_setWebviewSrc();
+						}
+					});
 				};
 				$scope.initModels();
 
