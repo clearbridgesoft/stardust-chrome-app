@@ -1467,7 +1467,7 @@ define([],function(){
 										"&isMobileClient=true";
 									}
 								}
-								$scope.mashupModel.externalUrl= _serverBaseUrl +url;
+								$scope.mashupModel.externalUrl= url.indexOf('http')>-1?url:_serverBaseUrl +url;
 								$scope.tabModel.activeSubView="form";
 							}
 
@@ -1562,8 +1562,7 @@ define([],function(){
 
 							/*Load new data for iframe, as soon as we modify externalUrl on our scope the 
 							 iframe will trigger a load.*/
-
-							$scope.mashupModel.externalUrl= _serverBaseUrl + url;
+							$scope.mashupModel.externalUrl= url.indexOf('http')>-1?url:_serverBaseUrl +url;
 							$scope.mashupModel.interactionId= data.contexts.externalWebApp ? data.contexts.externalWebApp.interactionId : data.contexts["default"].interactionId;
 
 							$rootScope.appData.isActivityHot = true;
