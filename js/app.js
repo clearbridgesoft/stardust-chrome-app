@@ -149,7 +149,7 @@ define(function(require){
 						$.mobile.navigate(data.target,data.payload);
 					}
 					else{
-						$.mobile.back();
+						window.location.hash="#mainPage";
 					}
 				});
 				
