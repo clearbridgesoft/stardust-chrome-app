@@ -2,7 +2,7 @@ define([],function(){
 
 	var directives={
 		
-		 "fileUpload" : function(){
+		 "fileUpload" : function($window){
 
 		    return{
 		    	"restrict" : 'EA',
@@ -64,7 +64,7 @@ define([],function(){
 		                };  
 		              }, false);
 		      
-		              xhr.open("POST", attr.urlTarget, true);
+		              xhr.open("POST", $window.serverBaseUrl +  '/services/rest/mobile-workflow' + attr.urlTarget, true);
 		              xhr.send(fd);
 		              
 		            });/*Click Handler Ends*/
