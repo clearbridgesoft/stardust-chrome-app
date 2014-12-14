@@ -1300,13 +1300,11 @@ define([],function(){
 
 					$scope.init(edata.data.id)
 						.catch(function(){
-							$scope.$apply(function(){
-								$scope.errorModel.errorMessage = $rootScope.appData.errorText.pageload;
-								$scope.errorModel.hasError = true;
-								$timeout(function(){
-									$scope.errorModel.hasError=false;
-								},$rootScope.appData.barDuration);
-							});
+							$scope.errorModel.errorMessage = $rootScope.appData.errorText.pageload;
+							$scope.errorModel.hasError = true;
+							$timeout(function(){
+								$scope.errorModel.hasError=false;
+							},$rootScope.appData.barDuration);
 						})
 						.finally(edata.ui.bCDeferred.resolve);
 
@@ -1795,6 +1793,7 @@ define([],function(){
 
 				/*Signal JQM to perform a manual navigation to a target page*/
 				$scope.navigateTo = function(target){
+					$rootScope.currentTaskUrl = window.location.hash;
 					utilService.navigateTo($rootScope,target);
 				};
 

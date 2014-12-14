@@ -189,6 +189,7 @@ define(["jquery-mobile", "angularjs"],function(jqm,angular){
 					console.log("JQM Router: /#processSearchPage");
 					
 					rootScope = angular.element($(document)).scope();
+					rootScope.currentTaskUrl = '';
 					scope=angular.element($("#processSearchPage")).scope();
 					jqmNData = new jqmNavigateData(scope.$id,eventType,ui,page,e,{},"processSearchPage");
 					$.mobile.loading( 'show');
