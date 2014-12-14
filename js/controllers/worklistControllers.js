@@ -1791,9 +1791,13 @@ define([],function(){
 						});
 				};
 
+				$scope.setCurrentTaskUrl = function(){
+					$rootScope.currentTaskUrl = window.location.hash;
+				};
+
 				/*Signal JQM to perform a manual navigation to a target page*/
 				$scope.navigateTo = function(target){
-					$rootScope.currentTaskUrl = window.location.hash;
+					$scope.setCurrentTaskUrl();
 					utilService.navigateTo($rootScope,target);
 				};
 

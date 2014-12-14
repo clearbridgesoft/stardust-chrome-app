@@ -9,7 +9,7 @@ data-on-load="uploadReporter.onLoad">
 <div>
 	<ul data-role="listview" data-theme="a" style="margin:0em;">
 		<li ng-repeat="doc in documentModel.docs">
-			<a class="ipp-no-content"
+			<a class="ipp-no-content" ng-click="setCurrentTaskUrl()"
 			   style="line-height:2em"
 			   href="#documentViewerPage?id={{doc.id}}&processOid={{activityModel.item.processInstanceOid}}">
 
