@@ -491,7 +491,7 @@ define(["angularjs"],function(angular){
 			},
 			
 			"getDocumentUrl" : function(downloadToken){
-				var docUrl = baseUrl + "/dms-content/" + downloadToken;
+				var docUrl = $window.serverBaseUrl + "/dms-content/" + downloadToken;
 				return docUrl;
 			},
 			
