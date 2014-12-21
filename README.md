@@ -3,20 +3,22 @@ stardust-chrome-app
 
 Eclipse Stardust Mobile UI packaged as a Chrome App
 
-##To load unpackaged app:##
+To test, load the the app folder aas an unpackaged chrome app, and fill in your stardust server url after launch
+https://developer.chrome.com/apps/first_app#five
 
-Go to chrome://flags.
-Find "Experimental Extension APIs", and click its "Enable" link.
-Restart Chrome.
+Most app files (js/html) are locally stored in the app but task forms are loaded from remote.
 
-###Load your app###
+The app should work exactly the same as the Mobile UI web version
 
-To load your app, bring up the apps and extensions management page by clicking the settings icon  and choosing Tools > Settings > Extensions.
 
-Make sure the Developer mode checkbox has been selected.
+Notices:
 
-Click the Load unpacked extension button, navigate to your app's folder and click OK.
+- Windows history API is disabled in Chrome App, so back buttons functionalities are modified accordingly.
 
-Open new tab and launch
+- Iframe replaced with Webview so remote form can be loaded, ways forms interacting with main app are also modified
 
-Once you've loaded your app, open a New Tab page and click on your new app icon.
+- Included ngCsp directive for content security policy compliance
+
+- Some other fixes targeting specific issues converting Mobile UI Web into a Chrome App
+
+- Server base settings can be handled more elegantly buy not a major concern this stage.
