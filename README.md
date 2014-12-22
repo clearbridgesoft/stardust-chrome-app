@@ -1,7 +1,7 @@
 stardust-chrome-app
 ===================
 
-Eclipse Stardust Mobile UI packaged as a Chrome App
+Eclipse Stardust Mobile UI packaged as a Chrome App, based on mobile-ui 2.0.1
 
 To test, load the the app folder aas an unpackaged chrome app, and fill in your stardust server url after launch
 https://developer.chrome.com/apps/first_app#five
