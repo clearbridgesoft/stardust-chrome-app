@@ -19,6 +19,6 @@ Notices:
 
 - Included ngCsp directive for content security policy compliance
 
-- Some other fixes targeting specific issues converting Mobile UI Web into a Chrome App
+- Some other fixes targeting specific issues when converting Mobile UI Web into a Chrome App
 
-- Server base settings can be handled more elegantly buy not a major concern this stage.
+- Server base settings can be handled more elegantly but not a major concern this stage.
